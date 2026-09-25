@@ -15,7 +15,7 @@ This page covers how to set up a local development environment, contribute chang
 ## Repository Structure
 
 ```
-penny-wallet/
+business-wallet/
 ├── src/
 │   ├── main.ts                  ← plugin entry point
 │   ├── types.ts                 ← shared types and constants
@@ -28,7 +28,7 @@ penny-wallet/
 │   │   ├── MobileTransactionModal.ts  ← add/edit transaction form (mobile)
 │   │   └── ConfirmModal.ts            ← shared confirmation dialog
 │   ├── view/
-│   │   ├── DashboardView.ts     ← Finance Overview
+│   │   ├── DashboardView.ts     ← Business Overview
 │   │   ├── DetailView.ts        ← Transactions list
 │   │   └── AssetView.ts         ← Assets view
 │   └── settings/
@@ -49,8 +49,8 @@ penny-wallet/
 Fork the repository, then clone your fork:
 
 ```bash
-git clone https://github.com/<your-username>/penny-wallet.git
-cd penny-wallet
+git clone https://github.com/<your-username>/business-wallet.git
+cd business-wallet
 npm install
 ```
 
@@ -66,13 +66,13 @@ npm run dev:watch
 
 This runs esbuild in watch mode. On every file save:
 1. TypeScript is compiled and bundled to `main.js`
-2. `main.js`, `manifest.json`, and `styles.css` are automatically copied to `demo-vault/.obsidian/plugins/penny-wallet/`
+2. `main.js`, `manifest.json`, and `styles.css` are automatically copied to `demo-vault/.obsidian/plugins/business-wallet/`
 
 ### 2. Open the demo vault in Obsidian
 
-In Obsidian, open the `demo-vault/` folder as a vault. The PennyWallet plugin is pre-configured there.
+In Obsidian, open the `demo-vault/` folder as a vault. The Business Wallet plugin is pre-configured there.
 
-Enable the plugin if not already: **Settings → Community Plugins → PennyWallet → Enable**
+Enable the plugin if not already: **Settings → Community Plugins → Business Wallet → Enable**
 
 > **Hot reload:** After each build, use the Obsidian command **Reload app without saving**.
 
@@ -183,7 +183,7 @@ Before opening a PR, verify the following:
 - [ ] Record credit card payment transfer from bank to credit card — both balances update
 - [ ] Net asset reflects credit card debt as negative
 
-**Finance Overview**
+**Business Overview**
 - [ ] Correct month navigation (prev/next, future disabled)
 - [ ] Income / expense / balance metrics are correct
 - [ ] Account balances match expected values
@@ -228,7 +228,7 @@ Before opening a PR, verify the following:
 ### TypeScript
 - Avoid `as any` — if you need it, add a comment explaining why
 - `getConfig()` returns a direct reference to internal state — treat it as read-only; use `updateConfig()` to mutate
-- New event names must follow the `penny-wallet:<event>` convention
+- New event names must follow the `business-wallet:<event>` convention
 
 ---
 

@@ -5,12 +5,12 @@ import { MobileTransactionModal } from './modal/MobileTransactionModal'
 import { DashboardView, DASHBOARD_VIEW_TYPE } from './view/DashboardView'
 import { DetailView, DETAIL_VIEW_TYPE } from './view/DetailView'
 import { AssetView, ASSET_VIEW_TYPE } from './view/AssetView'
-import { PennyWalletSettingTab } from './settings/SettingTab'
+import { BusinessWalletSettingTab } from './settings/SettingTab'
 import { ValidationModal } from './modal/ValidationModal'
 import { TransactionModalParams, TransactionType } from './types'
 import { initI18n, t } from './i18n'
 
-export default class PennyWalletPlugin extends Plugin {
+export default class BusinessWalletPlugin extends Plugin {
   walletFile!: WalletFile
 
   async onload() {
@@ -23,7 +23,7 @@ export default class PennyWalletPlugin extends Plugin {
     this.registerView(DETAIL_VIEW_TYPE, (leaf) => new DetailView(leaf, this.walletFile))
     this.registerView(ASSET_VIEW_TYPE, (leaf) => new AssetView(leaf, this.walletFile))
 
-    this.addRibbonIcon('wallet', 'Penny wallet', () => { void this.openDashboard() })
+    this.addRibbonIcon('briefcase', 'Business wallet', () => { void this.openDashboard() })
 
     this.addCommand({ id: 'open-dashboard', name: 'Open finance overview', callback: () => { void this.openDashboard() } })
     this.addCommand({ id: 'open-asset', name: 'Open assets', callback: () => { void this.openAssetView() } })
@@ -31,7 +31,7 @@ export default class PennyWalletPlugin extends Plugin {
     this.addCommand({ id: 'add-transaction', name: 'Add transaction', callback: () => this.openTransactionModal() })
     this.addCommand({ id: 'validate-data', name: 'Validate data', callback: () => void this.runValidation(true) })
     this.addCommand({ id: 'refresh', name: 'Refresh views', callback: () => {
-      this.app.workspace.trigger('penny-wallet:refresh')
+      this.app.workspace.trigger('business-wallet:refresh')
     } })
     this.addCommand({ id: 'open-settings', name: 'Open settings', callback: () => {
       const setting = (this.app as unknown as { setting: { open(): void; openTabById(id: string): void } }).setting
@@ -39,9 +39,9 @@ export default class PennyWalletPlugin extends Plugin {
       setting.openTabById(this.manifest.id)
     } })
 
-    this.addSettingTab(new PennyWalletSettingTab(this.app, this, this.walletFile))
+    this.addSettingTab(new BusinessWalletSettingTab(this.app, this, this.walletFile))
 
-    this.registerObsidianProtocolHandler('penny-wallet', (params: ObsidianProtocolData) => {
+    this.registerObsidianProtocolHandler('business-wallet', (params: ObsidianProtocolData) => {
       this.handleURI(params)
     })
 
@@ -59,7 +59,7 @@ export default class PennyWalletPlugin extends Plugin {
         void this.runValidation(false)
       }
     } catch (e) {
-      console.error('PennyWallet: failed to load config', e)
+      console.error('BusinessWallet: failed to load config', e)
       new Notice(t('notice.loadFailed'))
     }
   }
@@ -124,7 +124,7 @@ export default class PennyWalletPlugin extends Plugin {
   // ── Refresh ─────────────────────────────────────────────────────────────────
 
   private refreshViews() {
-    // Refresh all open PennyWallet leaves
+    // Refresh all open Business Wallet leaves
     this.app.workspace.getLeavesOfType(DASHBOARD_VIEW_TYPE).forEach((leaf: WorkspaceLeaf) => {
       void (leaf.view as DashboardView).render()
     })

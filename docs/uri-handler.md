@@ -1,13 +1,13 @@
 # URI Handler & iOS Shortcuts
 
-PennyWallet registers the `obsidian://penny-wallet` URI scheme. Any app that can open a URL — including iOS Shortcuts, Android automation tools, or browser bookmarks — can open the transaction form with fields pre-filled.
+Business Wallet registers the `obsidian://business-wallet` URI scheme. Any app that can open a URL — including iOS Shortcuts, Android automation tools, or browser bookmarks — can open the transaction form with fields pre-filled.
 
 ---
 
 ## URI Format
 
 ```
-obsidian://penny-wallet?param1=value1&param2=value2
+obsidian://business-wallet?param1=value1&param2=value2
 ```
 
 ### Parameters
@@ -73,7 +73,7 @@ Credit card refunds are recorded as expense refunds in the form, not as transfer
 ## Example
 
 ```
-obsidian://penny-wallet?type=expense&amount=280&category=food&note=Lunch
+obsidian://business-wallet?type=expense&amount=280&category=food&note=Lunch
 ```
 
 ---
@@ -86,7 +86,7 @@ obsidian://penny-wallet?type=expense&amount=280&category=food&note=Lunch
 4. Add action: **Choose from Menu** → prompt `Category`, options: `food`, `transport`, `shopping`, `entertainment`, `medical`, save to variable `category`
 5. Add action: **Open URL**:
    ```
-   obsidian://penny-wallet?type=expense&amount=[amount]&note=[note]&category=[category]
+   obsidian://business-wallet?type=expense&amount=[amount]&note=[note]&category=[category]
    ```
    Replace `[amount]`, `[note]`, `[category]` with the corresponding Shortcut variables.
 6. Tap **Done** and name the shortcut (e.g. `Log Expense`)
@@ -103,7 +103,7 @@ Yes. Add `vault=<vault-name>` to the URL to target a specific vault — this is 
 
 **Do account and category names need to match exactly?**
 
-Yes — they are case-sensitive and must match what's configured in PennyWallet Settings.
+Yes — they are case-sensitive and must match what's configured in Business Wallet Settings.
 
 **Can the URI submit a transaction silently?**
 

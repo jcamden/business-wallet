@@ -1,6 +1,21 @@
 # Changelog
 
-All notable changes to PennyWallet will be documented in this file.
+All notable changes to Business Wallet will be documented in this file.
+
+## Unreleased
+
+### Added
+- all-time business overview with YTD, current-month, prior-month, and custom date ranges
+- business-aware revenue, expense, profit, cash, owner funding, and owner draw reporting
+- category, provider/vendor, payer, monthly operating, cumulative profit/loss, and owner-funding breakdowns
+- bookkeeping-health checks for review status, receipts, bank reconciliation, statement recency, and duplicate sources
+
+### Changed
+- rebrand the plugin and runtime identifiers from the upstream personal-finance name to Business Wallet
+- use `.business-wallet.json` and `BusinessWallet/` for new installations while retaining legacy config compatibility
+
+### Deferred
+- runway and burn-rate reporting until representative operating history is available
 
 ## [0.0.15] - 2026-05-24
 
@@ -116,7 +131,7 @@ All notable changes to PennyWallet will be documented in this file.
 - Expanded default income categories: `interest`, `lottery`, `rent`, `cashback`, `dividend`, `investment_profit`, `insurance_income`, `pension`
 - Default transfer categories: `account_transfer`, `credit_card_payment`, `credit_card_refund`, `investment_trade`
 - Custom transfer categories section in Settings
-- `scripts/migrate-categories.mjs` — migrates old ledger rows (`repayment`→`transfer`, `other`→`-`) and `.penny-wallet.json` config to the new schema
+- `scripts/migrate-categories.mjs` — migrates old ledger rows (`repayment`→`transfer`, `other`→`-`) and `.business-wallet.json` config to the new schema
 
 ### Fixed
 - `credit_card_refund` balance calculation now correctly adjusts only the single credit card wallet (not double-counted)
@@ -172,7 +187,7 @@ All notable changes to PennyWallet will be documented in this file.
 - Multiple account types: cash, bank, credit card (with debt tracking)
 - Custom expense and income categories
 - Credit card repayment workflow with automatic debt calculation
-- iOS Shortcuts support via `obsidian://penny-wallet` URI handler
+- iOS Shortcuts support via `obsidian://business-wallet` URI handler
 - Bilingual support: English and Traditional Chinese
 - Plain Markdown storage — one file per month, compatible with Git sync and Dataview
-- Config stored as `.penny-wallet.json` at vault root
+- Config stored as `.business-wallet.json` at vault root

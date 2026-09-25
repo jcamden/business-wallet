@@ -3,7 +3,7 @@ import { WalletFile, buildMonthContent } from '../../src/io/WalletFile'
 import { createMockApp } from '../helpers/mockApp'
 import type { Transaction, Wallet } from '../../src/types'
 
-const FOLDER = 'PennyWallet'
+const FOLDER = 'BusinessWallet'
 const CASH: Wallet = { name: 'Cash', type: 'cash', initialBalance: 1000, status: 'active', includeInNetAsset: true }
 
 function monthFile(ym: string, txs: Transaction[], income = 0, expense = 0): string {
@@ -136,7 +136,7 @@ const BASE_CONFIG = JSON.stringify({
 describe('updateTransaction', () => {
   it('merges new tags into config when updated tx has tags', async () => {
     const { app } = createMockApp({
-      '.penny-wallet.json': BASE_CONFIG,
+      '.business-wallet.json': BASE_CONFIG,
       [`${FOLDER}/2026-04.md`]: monthFile('2026-04', [TX], 0, 100),
     })
     const wf = new WalletFile(app)

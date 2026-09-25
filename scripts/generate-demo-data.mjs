@@ -61,7 +61,7 @@ const wallets = [
 const config = {
   wallets,
   defaultWallet: CASH_WALLET,
-  folderName: 'PennyWallet',
+  folderName: 'BusinessWallet',
   decimalPlaces: 0,
   tags: fixedTags,
   options: {
@@ -88,7 +88,7 @@ const config = {
   },
 }
 
-const configPath = path.join(vaultRoot, '.penny-wallet.json')
+const configPath = path.join(vaultRoot, '.business-wallet.json')
 const dataDir = path.join(vaultRoot, config.folderName)
 const legacyDataDirs = ['PennyWallet', 'ledgers']
   .filter(dirName => dirName !== config.folderName)

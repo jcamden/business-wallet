@@ -8,8 +8,8 @@ const SOURCE = 'src/i18n.ts'
 
 // Proper nouns / acronyms allowed mid-sentence.
 const ALLOWLIST = new Set([
-  'Obsidian', 'PennyWallet', 'Penny', 'Wallet',
-  'API', 'URL', 'CSV', 'JSON', 'PWA', 'iOS', 'macOS', 'Android',
+  'Obsidian', 'Business', 'Wallet',
+  'API', 'URL', 'CSV', 'JSON', 'PWA', 'CJK', 'ASCII', 'iOS', 'macOS', 'Android',
   'Markdown',
   'Stage',
   'LinePay', 'PayPal',

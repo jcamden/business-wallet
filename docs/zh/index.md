@@ -2,19 +2,19 @@
 layout: home
 
 hero:
-  name: PennyWallet
+  name: Business Wallet
   text: Obsidian 個人財務記帳外掛
   tagline: 以純 Markdown 檔案記錄支出、收入、移轉、信用卡繳費與退款，資料永遠在你的 vault 裡。
   image:
     src: /finance-overview.png
-    alt: PennyWallet dashboard screenshot
+    alt: Business Wallet dashboard screenshot
   actions:
     - theme: brand
       text: 快速開始
       link: /zh/getting-started
     - theme: alt
       text: 在 GitHub 上查看
-      link: https://github.com/twrusstw/penny-wallet
+      link: https://github.com/jcamden/business-wallet
 
 features:
   - title: 純 Markdown 儲存

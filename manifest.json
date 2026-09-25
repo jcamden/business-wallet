@@ -1,10 +1,10 @@
 {
-  "id": "penny-wallet",
-  "name": "PennyWallet",
+  "id": "business-wallet",
+  "name": "Business Wallet",
   "version": "0.0.15",
   "minAppVersion": "1.4.0",
-  "description": "Track expenses, income, transfers, and credit card repayments as Markdown tables in your vault.",
-  "author": "twrusstw",
-  "authorUrl": "https://github.com/twrusstw",
+  "description": "Track business revenue, expenses, owner equity, and bookkeeping health as Markdown tables in your vault.",
+  "author": "John Camden",
+  "authorUrl": "https://github.com/jcamden",
   "isDesktopOnly": false
 }

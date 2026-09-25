@@ -2,11 +2,11 @@
 /**
  * migrate-categories.mjs
  *
- * Migrates old PennyWallet transaction files and config to new category schema:
+ * Migrates old Business Wallet transaction files and config to the current category schema:
  *   Ledger rows:
  *     - type: repayment  →  type: transfer, category: credit_card_payment
  *     - category: other  →  category: - (displays as 未分類)
- *   Config (.penny-wallet.json):
+ *   Config (.business-wallet.json or legacy config):
  *     - types.default: remove "repayment", ensure "transfer" present
  *     - categories.expense/income: remove "other" from default list
  *     - categories: add "transfer" bucket if missing
@@ -17,6 +17,7 @@
  */
 
 import { readdir, readFile, writeFile } from 'fs/promises'
+import { existsSync, readFileSync } from 'fs'
 import { join, basename } from 'path'
 
 const DEFAULT_TRANSFER_CATEGORIES = [
@@ -32,7 +33,11 @@ if (!vaultPath) {
   process.exit(1)
 }
 
-const walletDir = join(vaultPath, 'PennyWallet')
+const configPath = ['.business-wallet.json', '.penny-wallet.json']
+  .map(name => join(vaultPath, name))
+  .find(candidate => existsSync(candidate))
+const config = configPath ? JSON.parse(readFileSync(configPath, 'utf8')) : null
+const walletDir = join(vaultPath, config?.folderName ?? 'BusinessWallet')
 
 async function findLedgerFiles(dir) {
   let files
@@ -96,12 +101,15 @@ async function processFile(filePath) {
 }
 
 async function migrateConfig(vaultPath) {
-  const configPath = join(vaultPath, '.penny-wallet.json')
+  if (!configPath) {
+    console.log('No Business Wallet config found, skipping config migration.')
+    return
+  }
   let raw
   try {
     raw = await readFile(configPath, 'utf8')
   } catch {
-    console.log('No .penny-wallet.json found, skipping config migration.')
+    console.log('Business Wallet config could not be read, skipping config migration.')
     return
   }
 
@@ -140,12 +148,12 @@ async function migrateConfig(vaultPath) {
   }
 
   if (changes.length === 0) {
-    console.log('.penny-wallet.json: no changes needed')
+    console.log(`${basename(configPath)}: no changes needed`)
     return
   }
 
   for (const msg of changes) {
-    console.log(`${dryRun ? '[DRY RUN] ' : ''}.penny-wallet.json: ${msg}`)
+    console.log(`${dryRun ? '[DRY RUN] ' : ''}${basename(configPath)}: ${msg}`)
   }
   if (!dryRun) {
     await writeFile(configPath, JSON.stringify(config, null, 2) + '\n', 'utf8')

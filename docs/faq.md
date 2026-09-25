@@ -4,7 +4,7 @@
 
 ### My account balance looks wrong. What happened?
 
-PennyWallet calculates all balances by replaying every transaction from inception, starting from the **Initial Balance** you set when creating the account.
+Business Wallet calculates all balances by replaying every transaction from inception, starting from the **Initial Balance** you set when creating the account.
 
 Common causes:
 - **Wrong initial balance** — edit the account in Settings and correct it
@@ -23,7 +23,7 @@ If you need to rename, also do a find-and-replace in your vault's Markdown files
 
 ### What happens if I delete a transaction?
 
-The transaction is removed from the monthly `.md` file and the frontmatter cache (income/expense totals) is recalculated immediately. Wallet balances in the Finance Overview update on the next render.
+The transaction is removed from the monthly `.md` file and the frontmatter cache (income/expense totals) is recalculated immediately. Wallet balances in the Business Overview update on the next render.
 
 ---
 
@@ -61,23 +61,23 @@ Use an **Expense** on the same credit card and enable **This is a refund**. It i
 
 ### Can I use decimal amounts?
 
-Yes. Go to **Settings → PennyWallet → General → Decimal Places** and switch to **2 decimal places**. New transactions will accept `.00` amounts. Existing integer transactions are unaffected.
+Yes. Go to **Settings → Business Wallet → General → Decimal Places** and switch to **2 decimal places**. New transactions will accept `.00` amounts. Existing integer transactions are unaffected.
 
 ---
 
 ### Where is my data stored? Is it synced?
 
-All data is in your Obsidian vault as plain `.md` and `.json` files — wherever your vault lives (local folder, iCloud, Obsidian Sync, Dropbox, etc.). PennyWallet does not send any data anywhere.
+All data is in your Obsidian vault as plain `.md` and `.json` files — wherever your vault lives (local folder, iCloud, Obsidian Sync, Dropbox, etc.). Business Wallet does not send any data anywhere.
 
 ---
 
 ### I accidentally changed the folder name in Settings. Now my transactions aren't showing.
 
-Change the folder name back to the original value in **Settings → PennyWallet → Folder Name**. The plugin reads from whichever folder name is currently set — it does not move files automatically.
+Change the folder name back to the original value in **Settings → Business Wallet → Folder Name**. The plugin reads from whichever folder name is currently set — it does not move files automatically.
 
 ---
 
-### Can I use PennyWallet on mobile (iOS / Android)?
+### Can I use Business Wallet on mobile (iOS / Android)?
 
 Yes. All features work on mobile, including the transaction form and all three views. For quick mobile entry without opening Obsidian manually, see [URI Handler & iOS Shortcuts](./uri-handler).
 
@@ -95,16 +95,16 @@ Check that:
 
 ### How do I restore an archived account?
 
-Go to **Settings → PennyWallet → Archived Accounts** and click the **Unarchive** button next to the account. It will move back to Active Accounts and reappear in the Add Transaction form.
+Go to **Settings → Business Wallet → Archived Accounts** and click the **Unarchive** button next to the account. It will move back to Active Accounts and reappear in the Add Transaction form.
 
 ---
 
 ### The interface is in the wrong language. How do I change it?
 
-PennyWallet automatically matches Obsidian's language setting — it displays in **Traditional Chinese** if Obsidian is set to Chinese, and **English** otherwise. To change the language, update your Obsidian interface language in **Settings → General → Language**, then restart Obsidian.
+Business Wallet automatically matches Obsidian's language setting — it displays in **Traditional Chinese** if Obsidian is set to Chinese, and **English** otherwise. To change the language, update your Obsidian interface language in **Settings → General → Language**, then restart Obsidian.
 
 ---
 
 ### How do I report a bug or request a feature?
 
-Open an issue on [GitHub](https://github.com/twrusstw/penny-wallet/issues).
+Open an issue on [GitHub](https://github.com/jcamden/business-wallet/issues).

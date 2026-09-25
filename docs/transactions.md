@@ -1,6 +1,6 @@
 # Transactions
 
-PennyWallet has three transaction types. Each is designed for a specific real-world scenario.
+Business Wallet has three transaction types. Each is designed for a specific real-world scenario.
 
 ---
 
@@ -85,9 +85,9 @@ Moving money between two of your own accounts — including credit card payments
 
 ## Adding a Transaction
 
-**From Finance Overview or Transactions view:** click **+ Add Transaction**
+**From Business Overview or Transactions view:** click **+ Add Transaction**
 
-**From the Command Palette:** run `PennyWallet: Add Transaction`
+**From the Command Palette:** run `Business Wallet: Add Transaction`
 
 **From the ribbon icon:** click the balloon icon → then **+ Add Transaction**
 
@@ -127,4 +127,4 @@ Refunds are no longer a transfer category. Use **Expense** with the refund toggl
 
 If a transaction has no category, it is shown as **Uncategorized**. This is a display-only label — nothing is stored.
 
-Custom categories can be added in **Settings → PennyWallet → Custom Categories**.
+Custom categories can be added in **Settings → Business Wallet → Custom Categories**.

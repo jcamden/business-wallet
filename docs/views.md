@@ -1,12 +1,12 @@
 # Views
 
-PennyWallet has three views. The **Finance Overview** can be opened from the ribbon icon; the other two views are accessible from the header buttons inside Finance Overview, or via the Command Palette.
+Business Wallet has three views. The **Business Overview** is the primary view; Transactions and Assets remain available from its header or the Command Palette.
 
 ---
 
-## Finance Overview
+## Business Overview
 
-The main dashboard. Open it by clicking the **PennyWallet icon** in the left ribbon, or run **PennyWallet: Open Finance Overview** from the Command Palette.
+Open it by clicking the **Business Wallet icon** in the left ribbon, or run **Business Wallet: Open business overview** from the Command Palette.
 
 ![Finance overview](/finance-overview.png)
 
@@ -15,37 +15,32 @@ The header also contains two navigation buttons:
 - **Assets** — switch to the assets view
 - **+ Add Transaction** — open the transaction form
 
-### Month Navigation
+### Period selector
 
-Use `‹` / `›` to move between months. Future months are disabled.
+The default is **All time**. You can also select **Year to date**, **This month**, **Prior month**, or a custom start and end date.
 
 ### Summary Metrics
 
 | Metric | Description |
 |--------|-------------|
-| Income | Total income recorded this month |
-| Expense | Total expenses recorded this month |
-| Balance | Income minus Expense for this month |
+| Sales revenue | Operating revenue; owner contributions and refunds are excluded |
+| Business expenses | Ordinary and owner-paid expenses, net of refunds |
+| Profit or loss | Sales revenue minus business expenses |
+| Business cash | Included cash and bank account balances at the end of the period |
+| Owner funding | Direct owner contributions plus owner-paid expenses |
+| Owner draws | Equity withdrawals, excluded from expenses |
 
-### Account Balances
+### Management breakdowns
 
-Shows the **current running balance** of every active account, calculated from all transactions since the initial balance was set — not just the current month.
+- Funding source / expenses by payer
+- Expenses by category
+- Expenses by vendor, derived from `provider-*` tags
+- Monthly revenue versus expenses
+- Cumulative profit/loss and owner funding over time
 
-Credit card balances are shown as negative values (outstanding debt).
+### Bookkeeping health
 
-**Net Assets** at the bottom is the sum of all cash/bank balances minus all credit card debt.
-
-### Asset Allocation Pie
-
-Appears when you have two or more active cash/bank accounts with positive balances. Shows how your liquid assets are distributed across accounts. Each legend entry shows the account name, balance amount, and percentage.
-
-### Category Pie Charts
-
-Two pie charts appear if there is data:
-- **Expense by Category** — breakdown of this month's spending
-- **Income by Category** — breakdown of this month's income
-
-Each legend entry shows the category name, amount, and percentage. Small categories are grouped into **Others**; select that slice to drill into the grouped items. Hover over a slice or legend item to highlight it.
+The health panel counts review items, missing receipts, unreconciled bank transactions, and duplicate `src-*` identifiers, and shows the latest `stmt-*` statement tag.
 
 ---
 
@@ -77,7 +72,7 @@ A fixed bar at the bottom always shows **Expense Subtotal** and **Income Subtota
 
 ## Assets
 
-An assets-focused view for medium-term financial tracking. Open it from the **Assets** button in the Finance Overview header, or run **PennyWallet: Open assets** from the Command Palette.
+An assets-focused view for medium-term financial tracking. Open it from the **Assets** button in the Business Overview header, or run **Business Wallet: Open assets** from the Command Palette.
 
 ![Assets view](/asset-view.png)
 

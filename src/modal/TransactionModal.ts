@@ -1,5 +1,5 @@
 import { App, Modal, Notice, setIcon } from 'obsidian'
-import { Transaction, TransactionType, TransactionModalParams, PennyWalletConfig } from '../types'
+import { Transaction, TransactionType, TransactionModalParams, BusinessWalletConfig } from '../types'
 import { WalletFile } from '../io/WalletFile'
 import { dateToYearMonth } from '../utils'
 import { t } from '../i18n'
@@ -59,7 +59,7 @@ export class TransactionModal extends Modal {
     this.buildUI(config)
   }
 
-  protected initState(config: PennyWalletConfig) {
+  protected initState(config: BusinessWalletConfig) {
     if (this.editingTx) {
       const tx = this.editingTx
       this.type = tx.type
@@ -92,7 +92,7 @@ export class TransactionModal extends Modal {
     }
   }
 
-  private buildUI(config: PennyWalletConfig) {
+  private buildUI(config: BusinessWalletConfig) {
     const { contentEl } = this
     contentEl.empty()
     contentEl.addClass('pw-modal')
@@ -186,7 +186,7 @@ export class TransactionModal extends Modal {
     }
   }
 
-  private renderFields(config: PennyWalletConfig, autoFocus = true) {
+  private renderFields(config: BusinessWalletConfig, autoFocus = true) {
     this.fieldsEl.empty()
     this.amountPrefixEl = null
 
@@ -354,11 +354,11 @@ export class TransactionModal extends Modal {
     return sel
   }
 
-  protected getActiveWallets(config: PennyWalletConfig) {
+  protected getActiveWallets(config: BusinessWalletConfig) {
     return config.wallets.filter(w => w.status === 'active')
   }
 
-  protected normalizeWalletForCategory(config: PennyWalletConfig): void {
+  protected normalizeWalletForCategory(config: BusinessWalletConfig): void {
     if (this.category !== 'credit_card_payment') return
     const fromType = config.wallets.find(w => w.name === this.fromWallet)?.type
     const toType   = config.wallets.find(w => w.name === this.toWallet)?.type
@@ -382,7 +382,7 @@ export class TransactionModal extends Modal {
     }
   }
 
-  protected getCategoryOptions(config: PennyWalletConfig): { key: string; label: string }[] {
+  protected getCategoryOptions(config: BusinessWalletConfig): { key: string; label: string }[] {
     return getCategoryOptionsFromState(config, this.type)
   }
 

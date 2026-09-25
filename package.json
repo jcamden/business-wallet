@@ -1,7 +1,7 @@
 {
-  "name": "penny-wallet",
+  "name": "business-wallet",
   "version": "0.0.15",
-  "description": "Personal finance tracker Obsidian plugin",
+  "description": "Business bookkeeping tracker for Obsidian",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs development",
@@ -24,7 +24,7 @@
     "test:ui:mobile": "node scripts/test-ui-mobile.mjs"
   },
   "keywords": [],
-  "author": "twrusstw",
+  "author": "John Camden",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.24.0",

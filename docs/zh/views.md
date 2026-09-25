@@ -1,12 +1,12 @@
 # 介面與檢視
 
-PennyWallet 有三個檢視。**帳本總覽**可從側邊欄圖示開啟；其他兩個檢視可從帳本總覽標題列的按鈕進入，或透過指令面板開啟。
+Business Wallet 有三個檢視。**帳本總覽**可從側邊欄圖示開啟；其他兩個檢視可從帳本總覽標題列的按鈕進入，或透過指令面板開啟。
 
 ---
 
 ## 帳本總覽
 
-主要儀表板。點擊左側面板的 **PennyWallet 圖示**，或從指令面板執行 **PennyWallet: Open Finance Overview** 開啟。
+主要儀表板。點擊左側面板的 **Business Wallet 圖示**，或從指令面板執行 **Business Wallet: Open Business Overview** 開啟。
 
 ![帳本總覽](/finance-overview.png)
 
@@ -77,7 +77,7 @@ Desktop 上滑過交易列會顯示 **✏** 編輯；mobile 上編輯入口維�
 
 ## 資產
 
-以資產為核心的中期財務檢視。可由帳本總覽標題列的 **資產** 按鈕開啟，或從指令面板執行 **PennyWallet: Open assets**。
+以資產為核心的中期財務檢視。可由帳本總覽標題列的 **資產** 按鈕開啟，或從指令面板執行 **Business Wallet: Open assets**。
 
 ![資產檢視](/asset-view.png)
 

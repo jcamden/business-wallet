@@ -9,7 +9,7 @@ import { currentYearMonth, formatAmount } from '../utils'
 import { renderSharedHeader } from './SharedHeader'
 import { buildAmountDisplay, buildLine3Display, buildWalletText } from './detailRow'
 
-export const DETAIL_VIEW_TYPE = 'penny-wallet-detail'
+export const DETAIL_VIEW_TYPE = 'business-wallet-detail'
 
 export class DetailView extends ItemView {
   private walletFile: WalletFile
@@ -60,7 +60,7 @@ export class DetailView extends ItemView {
 
   async onOpen() {
     this.registerEvent(
-      (this.app.workspace as Events).on('penny-wallet:refresh', () => { void this.render() })
+      (this.app.workspace as Events).on('business-wallet:refresh', () => { void this.render() })
     )
     if (Platform.isMobile && window.visualViewport) {
       const el = this.contentEl
@@ -780,7 +780,7 @@ export class DetailView extends ItemView {
         {},
         tx,
         this.currentYearMonth,
-        () => (this.app.workspace as Events).trigger('penny-wallet:refresh'),
+        () => (this.app.workspace as Events).trigger('business-wallet:refresh'),
         null,
       ).open()
     })

@@ -1,13 +1,13 @@
 # URI Handler 與 iOS 捷徑
 
-PennyWallet 註冊了 `obsidian://penny-wallet` URI scheme。任何可以開啟 URL 的 App — 包括 iOS 捷徑、Android 自動化工具或瀏覽器書籤 — 都可以預填欄位開啟交易表單。
+Business Wallet 註冊了 `obsidian://business-wallet` URI scheme。任何可以開啟 URL 的 App — 包括 iOS 捷徑、Android 自動化工具或瀏覽器書籤 — 都可以預填欄位開啟交易表單。
 
 ---
 
 ## URI 格式
 
 ```
-obsidian://penny-wallet?參數1=值1&參數2=值2
+obsidian://business-wallet?參數1=值1&參數2=值2
 ```
 
 ### 可用參數
@@ -73,7 +73,7 @@ obsidian://penny-wallet?參數1=值1&參數2=值2
 ## 範例
 
 ```
-obsidian://penny-wallet?type=expense&amount=280&category=food&note=午餐
+obsidian://business-wallet?type=expense&amount=280&category=food&note=午餐
 ```
 
 ---
@@ -86,7 +86,7 @@ obsidian://penny-wallet?type=expense&amount=280&category=food&note=午餐
 4. 新增動作「**從選單選擇**」→ 提示 `分類`、選項 `food`、`transport`、`shopping`、`entertainment`、`medical`，儲存為變數 `category`
 5. 新增動作「**開啟 URL**」：
    ```
-   obsidian://penny-wallet?type=expense&amount=[amount]&note=[note]&category=[category]
+   obsidian://business-wallet?type=expense&amount=[amount]&note=[note]&category=[category]
    ```
    將 `[amount]`、`[note]`、`[category]` 替換為對應的捷徑變數。
 6. 點完成並為捷徑命名（例如：`記帳`）
@@ -103,7 +103,7 @@ obsidian://penny-wallet?type=expense&amount=280&category=food&note=午餐
 
 **帳戶與分類名稱需要完全相符嗎？**
 
-是，區分大小寫，必須與 PennyWallet 設定中的名稱完全一致。
+是，區分大小寫，必須與 Business Wallet 設定中的名稱完全一致。
 
 **URI 可以靜默送出交易嗎？**
 

@@ -15,7 +15,7 @@
 ## 專案結構
 
 ```
-penny-wallet/
+business-wallet/
 ├── src/
 │   ├── main.ts                  ← 外掛進入點
 │   ├── types.ts                 ← 共用型別與常數
@@ -49,8 +49,8 @@ penny-wallet/
 Fork 儲存庫，然後 clone 你的 fork：
 
 ```bash
-git clone https://github.com/<your-username>/penny-wallet.git
-cd penny-wallet
+git clone https://github.com/<your-username>/business-wallet.git
+cd business-wallet
 npm install
 ```
 
@@ -66,13 +66,13 @@ npm run dev:watch
 
 這會以監看模式執行 esbuild。每次儲存檔案時：
 1. TypeScript 被編譯並打包到 `main.js`
-2. `main.js`、`manifest.json` 和 `styles.css` 自動複製到 `demo-vault/.obsidian/plugins/penny-wallet/`
+2. `main.js`、`manifest.json` 和 `styles.css` 自動複製到 `demo-vault/.obsidian/plugins/business-wallet/`
 
 ### 2. 在 Obsidian 中開啟 demo vault
 
-在 Obsidian 中，將 `demo-vault/` 資料夾開啟為 vault。PennyWallet 外掛已預先設定在那裡。
+在 Obsidian 中，將 `demo-vault/` 資料夾開啟為 vault。Business Wallet 外掛已預先設定在那裡。
 
-若尚未啟用，請至：**設定 → 社群外掛 → PennyWallet → 啟用**
+若尚未啟用，請至：**設定 → 社群外掛 → Business Wallet → 啟用**
 
 > **即時重載：** 每次建置後，使用 Obsidian 指令 **Reload app without saving**。
 
@@ -228,7 +228,7 @@ npm run test:ui
 ### TypeScript
 - 避免使用 `as any` — 若必須使用，請加上說明原因的註解
 - `getConfig()` 回傳內部狀態的直接參照 — 請視為唯讀；使用 `updateConfig()` 修改
-- 新事件名稱必須遵循 `penny-wallet:<event>` 的命名規範
+- 新事件名稱必須遵循 `business-wallet:<event>` 的命名規範
 
 ---
 

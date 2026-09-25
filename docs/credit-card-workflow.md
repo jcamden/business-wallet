@@ -1,6 +1,6 @@
 # Credit Card Workflow
 
-Credit card accounts in PennyWallet track **outstanding debt**, not a traditional balance. This page explains the complete credit card cycle.
+Credit card accounts in Business Wallet track **outstanding debt**, not a traditional balance. This page explains the complete credit card cycle.
 
 ---
 
@@ -13,7 +13,7 @@ Credit card accounts in PennyWallet track **outstanding debt**, not a traditiona
 | Record a **Transfer (Credit Card Payment)** | Debt decreases |
 | Record an **Expense with Refund enabled** on the credit card | Debt decreases (refund reversal) |
 
-The balance shown in Finance Overview is displayed as a **negative number** (e.g. `−4,500`) because it represents money you owe, and is **subtracted** from your net asset.
+The balance shown in Business Overview is displayed as a **negative number** (e.g. `−4,500`) because it represents money you owe, and is **subtracted** from your net asset.
 
 ---
 
@@ -87,7 +87,7 @@ This carries over into the next month automatically.
 
 ## Refunds and Returns
 
-For a returned credit card purchase, create an **Expense** on the same credit card account and enable **This is a refund**. PennyWallet stores it as a negative expense, displays it as a positive expense reversal, and reduces the card's outstanding debt.
+For a returned credit card purchase, create an **Expense** on the same credit card account and enable **This is a refund**. Business Wallet stores it as a negative expense, displays it as a positive expense reversal, and reduces the card's outstanding debt.
 
 > **Type:** Expense
 > **Account:** Visa Platinum

@@ -1,6 +1,6 @@
 # Data Format
 
-PennyWallet stores all data as plain text files in your vault. No proprietary database, no binary files.
+Business Wallet stores all data as plain text files in your vault. No proprietary database, no binary files.
 
 ---
 
@@ -8,8 +8,8 @@ PennyWallet stores all data as plain text files in your vault. No proprietary da
 
 ```
 <vault>/
-├── .penny-wallet.json       ← plugin config
-└── PennyWallet/             ← monthly transaction files (folder name configurable)
+├── .business-wallet.json       ← plugin config
+└── BusinessWallet/             ← monthly transaction files (folder name configurable)
     ├── 2026-04.md
     ├── 2026-03.md
     └── 2026-02.md
@@ -59,13 +59,13 @@ netAsset: 0
 
 ### Frontmatter Cache
 
-The `income`, `expense`, and `netAsset` fields at the top are a cache used for fast loading in the Finance Overview and Assets views. They are recomputed automatically whenever a transaction is added, edited, or deleted.
+The `income`, `expense`, and `netAsset` fields at the top are a cache used for fast loading in the Business Overview and Assets views. They are recomputed automatically whenever a transaction is added, edited, or deleted.
 
 > Do not edit the frontmatter manually — it will be overwritten on the next transaction write.
 
 ---
 
-## Config File: `.penny-wallet.json`
+## Config File: `.business-wallet.json`
 
 Stored at the **vault root** (not inside the transactions folder).
 
@@ -88,7 +88,7 @@ Stored at the **vault root** (not inside the transactions folder).
     }
   ],
   "defaultWallet": "Cash",
-  "folderName": "PennyWallet",
+  "folderName": "BusinessWallet",
   "decimalPlaces": 0,
   "options": {
     "types": { "default": ["expense", "income", "transfer"], "custom": [] },
@@ -125,7 +125,7 @@ Dataview reads frontmatter fields directly. You can use it to query the monthly 
 
 ```dataview
 TABLE income, expense, (income - expense) AS balance
-FROM "PennyWallet"
+FROM "Business Wallet"
 WHERE income != null
 SORT file.name ASC
 ```
@@ -134,7 +134,7 @@ SORT file.name ASC
 
 ```dataview
 LIST file.name
-FROM "PennyWallet"
+FROM "Business Wallet"
 WHERE expense > income
 ```
 
@@ -151,4 +151,4 @@ You can edit the Markdown files directly in Obsidian. Follow the column format e
 - Refunds are stored as `expense` rows with a negative amount
 - `CreatedAt` is auto-assigned when writing through the UI — do not edit it manually, as it is used for stable same-date ordering
 
-After manual edits, PennyWallet will re-read the file on the next view render. The frontmatter cache will be updated automatically on the next transaction write to that month.
+After manual edits, Business Wallet will re-read the file on the next view render. The frontmatter cache will be updated automatically on the next transaction write to that month.

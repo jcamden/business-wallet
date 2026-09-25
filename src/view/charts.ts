@@ -28,6 +28,12 @@ export interface MonthData {
   net: number | null
 }
 
+export interface TrendPoint {
+  monthLabel: string
+  tooltipLabel: string
+  value: number
+}
+
 // ─── Color helpers ────────────────────────────────────────────────────────────
 
 export function getThemeColors() {
@@ -100,7 +106,7 @@ export function drawIncExpChart(
       labels: data.map(d => d.monthLabel),
       datasets: [
         {
-          label: t('dash.income'),
+          label: t('dash.salesRevenue'),
           data: data.map(d => d.income),
           backgroundColor: colors.income,
           borderWidth: 0,
@@ -108,7 +114,7 @@ export function drawIncExpChart(
           stack: 'cf',
         },
         {
-          label: t('dash.expense'),
+          label: t('dash.businessExpenses'),
           data: data.map(d => -d.expense),
           backgroundColor: colors.expense,
           borderWidth: 0,
@@ -250,6 +256,60 @@ export function drawNetChart(
   }
 
   return new Chart(canvas, cfg)
+}
+
+export function drawTrendChart(
+  container: HTMLElement,
+  data: TrendPoint[],
+  label: string,
+  dp: 0 | 2 = 0,
+  color: 'income' | 'expense' | 'net' = 'net',
+): Chart {
+  const colors = getThemeColors()
+  const canvas = container.createEl('canvas')
+
+  return new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: data.map(point => point.monthLabel),
+      datasets: [{
+        label,
+        data: data.map(point => point.value),
+        borderColor: colors[color],
+        pointBackgroundColor: colors[color],
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: false,
+        tension: 0.3,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        datalabels: { display: false },
+        tooltip: {
+          callbacks: {
+            title: items => data[items[0].dataIndex].tooltipLabel,
+            label: context => `${label}: ${formatAmount(context.raw as number, dp)}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          border: { display: false },
+          grid: { display: false },
+          ticks: { color: colors.muted },
+        },
+        y: {
+          border: { display: false },
+          grid: { color: colors.grid },
+          ticks: { color: colors.muted, callback: value => formatK(value as number, dp) },
+        },
+      },
+    },
+  })
 }
 
 // ─── Pie chart ────────────────────────────────────────────────────────────────

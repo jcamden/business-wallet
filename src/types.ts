@@ -38,7 +38,7 @@ export interface OptionsListGroup {
   custom: string[]    // user-defined
 }
 
-export interface PennyWalletOptions {
+export interface BusinessWalletOptions {
   types: OptionsListGroup
   categories: {
     expense: OptionsListGroup
@@ -47,12 +47,12 @@ export interface PennyWalletOptions {
   }
 }
 
-export interface PennyWalletConfig {
+export interface BusinessWalletConfig {
   wallets: Wallet[]
   defaultWallet: string
   folderName: string
   decimalPlaces: 0 | 2
-  options: PennyWalletOptions
+  options: BusinessWalletOptions
   tags: string[]
   autoValidateOnLoad: boolean
 }
@@ -87,7 +87,7 @@ export const DEFAULT_TRANSFER_CATEGORIES = [
   'investment_trade',
 ] as const
 
-export const DEFAULT_CONFIG: PennyWalletConfig = {
+export const DEFAULT_CONFIG: BusinessWalletConfig = {
   wallets: [
     {
       name: 'Default Wallet',
@@ -98,7 +98,7 @@ export const DEFAULT_CONFIG: PennyWalletConfig = {
     }
   ],
   defaultWallet: 'Default Wallet',
-  folderName: 'PennyWallet',
+  folderName: 'BusinessWallet',
   decimalPlaces: 0,
   options: {
     types: {

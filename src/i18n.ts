@@ -61,7 +61,7 @@ const translations = {
     'ui.noMatches': '沒有符合的選項',
 
     // Dashboard
-    'dashboard.title': '帳本總覽',
+    'dashboard.title': '企業總覽',
     'dash.income': '收入',
     'dash.expense': '支出',
     'dash.balance': '結餘',
@@ -70,7 +70,30 @@ const translations = {
     'dash.assetAllocation': '資金占比',
     'dash.expenseByCategory': '支出分類',
     'dash.incomeByCategory': '收入分類',
-    'dash.noData': '本月無資料',
+    'dash.noData': '此期間無資料',
+    'dash.salesRevenue': '銷售收入',
+    'dash.businessExpenses': '企業支出',
+    'dash.profitLoss': '損益',
+    'dash.businessCash': '企業現金',
+    'dash.ownerFunding': '業主投入',
+    'dash.ownerDraws': '業主提款',
+    'dash.fundingSource': '資金來源／付款人',
+    'dash.expenseByVendor': '依供應商分類的支出',
+    'dash.period': '期間',
+    'period.all': '全部期間',
+    'period.ytd': '本年至今',
+    'period.thisMonth': '本月',
+    'period.priorMonth': '上月',
+    'period.custom': '自訂日期範圍',
+    'period.start': '開始日期',
+    'period.end': '結束日期',
+    'health.title': '記帳健康狀態',
+    'health.needsReview': '待審核交易',
+    'health.missingReceipts': '缺少收據的交易',
+    'health.unreconciled': '未對帳銀行交易',
+    'health.latestStatement': '最近已對帳帳單',
+    'health.duplicateSources': '重複來源警告',
+    'health.none': '無',
 
     // Detail view
     'detail.title': '收支明細',
@@ -97,6 +120,9 @@ const translations = {
     'trend.6m': '6 個月',
     'trend.12m': '12 個月',
     'trend.monthlyIncomeExpense': '每月收支',
+    'trend.monthlyRevenueExpense': '每月收入與支出',
+    'trend.cumulativeProfitLoss': '累計損益',
+    'trend.ownerFunding': '業主投入趨勢',
 
     // Date formatting
     'date.yearMonthNumeric': '{year} 年 {month} 月',
@@ -188,7 +214,7 @@ const translations = {
     'confirm.unarchiveWallet': '確定要取消封存此錢包？',
 
     // Onboarding
-    'onboard.welcome': '歡迎使用 PennyWallet！建議先新增您的銀行帳戶與信用卡錢包。',
+    'onboard.welcome': '歡迎使用 Business Wallet！建議先新增您的銀行帳戶與信用卡錢包。',
 
     // Settings — extra
     'settings.noActiveWallets': '無使用中錢包',
@@ -202,7 +228,7 @@ const translations = {
     'notice.transactionDeleted': '✓ 交易已刪除',
     'notice.transactionAdded': '✓ 交易已新增',
     'notice.transactionUpdated': '✓ 交易已更新',
-    'notice.loadFailed': 'PennyWallet 載入失敗，請檢查插件設定。',
+    'notice.loadFailed': 'Business Wallet 載入失敗，請檢查插件設定。',
 
     // Errors — extra
     'err.cashBankNegativeBalance': '現金與銀行帳戶餘額不能為負數',
@@ -274,7 +300,7 @@ const translations = {
     'ui.search': 'Search',
     'ui.noMatches': 'No matches',
 
-    'dashboard.title': 'Finance overview',
+    'dashboard.title': 'Business overview',
     'dash.income': 'Income',
     'dash.expense': 'Expense',
     'dash.balance': 'Balance',
@@ -283,7 +309,30 @@ const translations = {
     'dash.assetAllocation': 'Asset allocation',
     'dash.expenseByCategory': 'Expense by category',
     'dash.incomeByCategory': 'Income by category',
-    'dash.noData': 'No data this month',
+    'dash.noData': 'No data for this period',
+    'dash.salesRevenue': 'Sales revenue',
+    'dash.businessExpenses': 'Business expenses',
+    'dash.profitLoss': 'Profit or loss',
+    'dash.businessCash': 'Business cash',
+    'dash.ownerFunding': 'Owner funding',
+    'dash.ownerDraws': 'Owner draws',
+    'dash.fundingSource': 'Funding source / expenses by payer',
+    'dash.expenseByVendor': 'Expenses by vendor',
+    'dash.period': 'Period',
+    'period.all': 'All time',
+    'period.ytd': 'Year to date',
+    'period.thisMonth': 'This month',
+    'period.priorMonth': 'Prior month',
+    'period.custom': 'Custom date range',
+    'period.start': 'Start date',
+    'period.end': 'End date',
+    'health.title': 'Bookkeeping health',
+    'health.needsReview': 'Transactions needing review',
+    'health.missingReceipts': 'Transactions missing receipts',
+    'health.unreconciled': 'Unreconciled bank transactions',
+    'health.latestStatement': 'Latest reconciled statement',
+    'health.duplicateSources': 'Duplicate-source warnings',
+    'health.none': 'None',
 
     'detail.title': 'Transactions',
     'detail.filterAll': 'All',
@@ -308,6 +357,9 @@ const translations = {
     'trend.6m': '6 Months',
     'trend.12m': '12 Months',
     'trend.monthlyIncomeExpense': 'Monthly income & expense',
+    'trend.monthlyRevenueExpense': 'Monthly revenue versus expenses',
+    'trend.cumulativeProfitLoss': 'Cumulative profit/loss',
+    'trend.ownerFunding': 'Owner funding over time',
 
     'date.yearMonthNumeric': '{month}/{year}',
     'date.yearMonthShort': '{monthName} {year}',
@@ -352,7 +404,7 @@ const translations = {
 
     'settings.general': 'General',
     'settings.folderName': 'Folder name',
-    'settings.folderNameDesc': 'Folder to store penny-wallet files (relative to vault root)',
+    'settings.folderNameDesc': 'Folder to store Business Wallet files (relative to vault root)',
     'settings.defaultWallet': 'Default account',
     'settings.defaultWalletDesc': 'Default account selected when adding a transaction',
     'settings.decimalPlaces': 'Decimal places',
@@ -393,7 +445,7 @@ const translations = {
     'confirm.deleteWallet': 'Delete this wallet?',
     'confirm.unarchiveWallet': 'Unarchive this wallet?',
 
-    'onboard.welcome': 'Welcome to PennyWallet! We recommend adding your bank accounts and credit cards.',
+    'onboard.welcome': 'Welcome to Business Wallet! We recommend adding your bank accounts and credit cards.',
 
     'settings.noActiveWallets': 'No active wallets',
     'settings.creditDebtPrefix': 'Owed ',
@@ -405,7 +457,7 @@ const translations = {
     'notice.transactionDeleted': '✓ Transaction deleted',
     'notice.transactionAdded': '✓ Transaction added',
     'notice.transactionUpdated': '✓ Transaction updated',
-    'notice.loadFailed': 'PennyWallet failed to load. Please check plugin settings.',
+    'notice.loadFailed': 'Business Wallet failed to load. Please check plugin settings.',
 
     'err.cashBankNegativeBalance': 'Cash and bank balance cannot be negative',
     'err.creditNegativeBalance': 'Credit card balance cannot be negative, enter positive debt amount',

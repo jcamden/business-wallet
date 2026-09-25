@@ -21,7 +21,7 @@ const prod = mode === 'production'
 const watch = mode === 'watch'
 const rootDir = dirname(fileURLToPath(import.meta.url))
 const outputFile = join(rootDir, 'main.js')
-const demoPluginDir = join(rootDir, 'demo-vault', '.obsidian', 'plugins', 'penny-wallet')
+const demoPluginDir = join(rootDir, 'demo-vault', '.obsidian', 'plugins', 'business-wallet')
 const watchedAssetNames = new Set(['manifest.json', 'styles.css'])
 
 let syncInFlight = false
@@ -43,7 +43,7 @@ async function reloadObsidian() {
   }
 
   try {
-    await execAsync('obsidian plugin:reload id=penny-wallet vault="demo-vault"')
+    await execAsync('obsidian plugin:reload id=business-wallet vault="demo-vault"')
     console.log('[dev-sync] Plugin reloaded in Obsidian')
   } catch (err) {
     console.warn('[dev-sync] Reload failed:', err.message?.split('\n')[0])

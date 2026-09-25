@@ -7,7 +7,7 @@ import { Chart } from 'chart.js'
 import { MonthData, drawNetChart, drawPie, getMonthRange } from './charts'
 import { renderCard } from './components'
 
-export const ASSET_VIEW_TYPE = 'penny-wallet-asset'
+export const ASSET_VIEW_TYPE = 'business-wallet-asset'
 
 export class AssetView extends ItemView {
   private walletFile: WalletFile
@@ -30,7 +30,7 @@ export class AssetView extends ItemView {
 
   async onOpen() {
     this.registerEvent(
-      (this.app.workspace as Events).on('penny-wallet:refresh', () => { void this.render() })
+      (this.app.workspace as Events).on('business-wallet:refresh', () => { void this.render() })
     )
     this.registerEvent(
       (this.app.workspace as Events).on('css-change', () => { void this.render() })

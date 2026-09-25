@@ -8,7 +8,7 @@ import type { Transaction } from '../../src/types'
 
 async function makeWalletFile(initialFiles: Record<string, string> = {}) {
   const config = { ...DEFAULT_CONFIG, folderName: 'Ledgers' }
-  const files = { '.penny-wallet.json': JSON.stringify(config), ...initialFiles }
+  const files = { '.business-wallet.json': JSON.stringify(config), ...initialFiles }
   const { app, store } = createMockApp(files)
   const wf = new WalletFile(app)
   await wf.loadConfig()
@@ -202,7 +202,7 @@ describe('getNetAssetTimeline', () => {
       folderName: 'Ledgers',
       wallets: [{ name: 'Bank', type: 'bank' as const, initialBalance: 0, status: 'active' as const, includeInNetAsset: true }],
     }
-    const { app } = createMockApp({ '.penny-wallet.json': JSON.stringify(config) })
+    const { app } = createMockApp({ '.business-wallet.json': JSON.stringify(config) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
 
@@ -257,7 +257,7 @@ describe('getWalletBalanceTrend', () => {
         { name: 'Bank', type: 'bank' as const, initialBalance: 500, status: 'active' as const, includeInNetAsset: true },
       ],
     }
-    const { app } = createMockApp({ '.penny-wallet.json': JSON.stringify(config) })
+    const { app } = createMockApp({ '.business-wallet.json': JSON.stringify(config) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
 
@@ -281,7 +281,7 @@ describe('getWalletBalanceTrend', () => {
         { name: 'Credit', type: 'creditCard' as const, initialBalance: 0, status: 'active' as const, includeInNetAsset: true },
       ],
     }
-    const { app } = createMockApp({ '.penny-wallet.json': JSON.stringify(config) })
+    const { app } = createMockApp({ '.business-wallet.json': JSON.stringify(config) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
 

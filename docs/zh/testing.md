@@ -1,12 +1,12 @@
 # 測試指南
 
-本頁說明 PennyWallet 的自動化測試策略、如何設定測試環境，以及涵蓋的測試範圍。
+本頁說明 Business Wallet 的自動化測試策略、如何設定測試環境，以及涵蓋的測試範圍。
 
 ---
 
 ## 概述
 
-PennyWallet 使用 **[Vitest](https://vitest.dev/)** 作為測試執行器。選擇 Vitest 的原因：
+Business Wallet 使用 **[Vitest](https://vitest.dev/)** 作為測試執行器。選擇 Vitest 的原因：
 
 - 原生支援 ESM 和 TypeScript（不需要額外的轉換設定）
 - 與專案的 `ES2018` / `lib: ES2017` 目標相容
@@ -30,7 +30,7 @@ PennyWallet 使用 **[Vitest](https://vitest.dev/)** 作為測試執行器。選
 ## 目錄結構
 
 ```
-penny-wallet/
+business-wallet/
 ├── src/
 │   └── ...
 ├── tests/
@@ -260,8 +260,8 @@ export function createMockApp(initialFiles: Record<string, string> = {}) {
 
 | 情境 | 預期 |
 |------|------|
-| 磁碟上無設定檔（首次啟動） | 建立含 locale 現金名稱的 `.penny-wallet.json` |
-| `.penny-wallet.json` 存在 | 載入並回傳 |
+| 磁碟上無設定檔（首次啟動） | 建立含 locale 現金名稱的 `.business-wallet.json` |
+| `.business-wallet.json` 存在 | 載入並回傳 |
 | 格式錯誤的 JSON | 退為 `DEFAULT_CONFIG` |
 | `updateConfig` 後 `saveConfig` | 將修改持久化至記憶體內 vault |
 | `updateConfig` 後 `getConfig` | 回傳最新的記憶體內值 |
@@ -303,9 +303,9 @@ export function createMockApp(initialFiles: Record<string, string> = {}) {
 | Section | 測試內容 |
 |---------|---------|
 | Plugin health | Plugin 重新載入不報錯 |
-| Finance Overview — layout | Month label、導覽按鈕、指標、帳戶清單 |
-| Finance Overview — navigation | 上/下月按鈕、disabled 狀態 |
-| Finance Overview — pie charts | 圓餅圖渲染、圖例項目 |
+| Business Overview — layout | Month label、導覽按鈕、指標、帳戶清單 |
+| Business Overview — navigation | 上/下月按鈕、disabled 狀態 |
+| Business Overview — pie charts | 圓餅圖渲染、圖例項目 |
 | Add Transaction modal | Modal 開啟、type tabs 存在 |
 | Add expense transaction | 完整表單提交：選擇帳戶、填金額、modal 關閉 |
 | Add refund transaction | 退款切換會儲存負支出 |

@@ -8,22 +8,24 @@
  *   node scripts/migrate-add-tags.mjs [vault-path]
  *
  * vault-path defaults to the current directory.
- * Reads .penny-wallet.json to find folderName.
+ * Reads .business-wallet.json (or the legacy config) to find folderName.
  */
 
 import * as fs from 'fs'
 import * as path from 'path'
 
 const vaultPath = process.argv[2] ?? process.cwd()
-const configPath = path.join(vaultPath, '.penny-wallet.json')
+const configPath = ['.business-wallet.json', '.penny-wallet.json']
+  .map(name => path.join(vaultPath, name))
+  .find(candidate => fs.existsSync(candidate))
 
-if (!fs.existsSync(configPath)) {
-  console.error(`Config not found: ${configPath}`)
+if (!configPath) {
+  console.error(`Config not found in: ${vaultPath}`)
   process.exit(1)
 }
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
-const folderName = config.folderName ?? 'PennyWallet'
+const folderName = config.folderName ?? 'BusinessWallet'
 const folderPath = path.join(vaultPath, folderName)
 
 if (!fs.existsSync(folderPath)) {

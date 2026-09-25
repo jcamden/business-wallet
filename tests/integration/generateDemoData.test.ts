@@ -16,17 +16,17 @@ describe('generate-demo-data', () => {
   })
 
   it('writes fixed tags and assigns them to generated transactions', async () => {
-    const vaultRoot = await mkdtemp(path.join(tmpdir(), 'penny-wallet-demo-'))
+    const vaultRoot = await mkdtemp(path.join(tmpdir(), 'business-wallet-demo-'))
     tempDirs.push(vaultRoot)
 
     await execFileAsync('node', ['scripts/generate-demo-data.mjs', vaultRoot], {
       cwd: path.resolve(__dirname, '../..'),
     })
 
-    const config = JSON.parse(await readFile(path.join(vaultRoot, '.penny-wallet.json'), 'utf8'))
+    const config = JSON.parse(await readFile(path.join(vaultRoot, '.business-wallet.json'), 'utf8'))
     expect(config.tags).toEqual(['daily', 'essential', 'family', 'fun', 'health', 'invest', 'online', 'outing', 'travel', 'work'])
 
-    const dataDir = path.join(vaultRoot, 'PennyWallet')
+    const dataDir = path.join(vaultRoot, 'BusinessWallet')
     const monthFiles = await readdir(dataDir)
     const monthContent = (await Promise.all(
       monthFiles

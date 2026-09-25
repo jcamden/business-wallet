@@ -21,14 +21,16 @@ if (!vaultPath) {
   process.exit(1)
 }
 
-const configPath = path.join(vaultPath, '.penny-wallet.json')
-if (!fs.existsSync(configPath)) {
-  console.error(`Config not found: ${configPath}`)
+const configPath = ['.business-wallet.json', '.penny-wallet.json']
+  .map(name => path.join(vaultPath, name))
+  .find(candidate => fs.existsSync(candidate))
+if (!configPath) {
+  console.error(`Config not found in: ${vaultPath}`)
   process.exit(1)
 }
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
-const folderName = config.folderName ?? 'PennyWallet'
+const folderName = config.folderName ?? 'BusinessWallet'
 const folderPath = path.join(vaultPath, folderName)
 
 if (!fs.existsSync(folderPath)) {

@@ -104,7 +104,7 @@ describe('detectOrphanedWallets', () => {
 
 describe('repairOrphanedWallet', () => {
   function makeApp(configJson: string) {
-    const files = new Map<string, string>([['.penny-wallet.json', configJson]])
+    const files = new Map<string, string>([['.business-wallet.json', configJson]])
     return {
       vault: {
         getFileByPath: (p: string) => files.has(p) ? { path: p } : null,

@@ -1,6 +1,6 @@
 # Accounts
 
-PennyWallet supports three account types. Each type behaves differently in balance calculations and net asset tracking.
+Business Wallet supports three account types. Each type behaves differently in balance calculations and net asset tracking.
 
 ---
 
@@ -38,7 +38,7 @@ Represents a credit card. The balance tracks **outstanding debt**, not available
 - Expenses **increase** the debt
 - Credit card payment transfers **decrease** the debt
 - Refund expenses **decrease** the debt
-- Displayed with a **−** sign in the Finance Overview (because it's money you owe)
+- Displayed with a **−** sign in the Business Overview (because it's money you owe)
 - Subtracted from net asset
 
 **Example:** Credit card with NT$4,500 outstanding → displays as `−4,500` in net asset
@@ -53,7 +53,7 @@ Represents a credit card. The balance tracks **outstanding debt**, not available
 
 ### Add an account
 
-**Settings → PennyWallet → Add Account**
+**Settings → Business Wallet → Add Account**
 
 Fill in the name, type, and initial balance, then click **Add Account** (or press Enter).
 
@@ -73,7 +73,7 @@ If an account has existing transactions, it can be **Archived** instead of delet
 
 ### Unarchive an account
 
-To restore an archived account, go to **Settings → PennyWallet → Archived Accounts** and click the **Unarchive** button next to it. The account moves back to Active Accounts and reappears in the Add Transaction form.
+To restore an archived account, go to **Settings → Business Wallet → Archived Accounts** and click the **Unarchive** button next to it. The account moves back to Active Accounts and reappears in the Add Transaction form.
 
 ### Delete an account
 

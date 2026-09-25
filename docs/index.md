@@ -2,19 +2,19 @@
 layout: home
 
 hero:
-  name: PennyWallet
-  text: Personal Finance Tracker for Obsidian
-  tagline: Log expenses, income, transfers, credit card payments, and refunds as plain Markdown files in your vault.
+  name: Business Wallet
+  text: Business Bookkeeping for Obsidian
+  tagline: Track revenue, operating expenses, owner equity, cash, and bookkeeping health in plain Markdown files.
   image:
     src: /finance-overview.png
-    alt: PennyWallet dashboard screenshot
+    alt: Business Wallet dashboard screenshot
   actions:
     - theme: brand
       text: Get Started
       link: /getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/twrusstw/penny-wallet
+      link: https://github.com/jcamden/business-wallet
 
 features:
   - title: Plain Markdown Storage
@@ -23,6 +23,6 @@ features:
     details: Expense, Income, and Transfer — with credit card payments as transfer categories and refunds as negative expenses.
   - title: iOS Shortcuts Support
     details: Use the URI handler to pre-fill the transaction form from iOS Shortcuts or any URL-capable app for one-tap mobile entry.
-  - title: Finance Overview & Charts
-    details: Dashboard with account balances, Chart.js category pie charts, and multi-month income/expense and net asset trend charts.
+  - title: Business Overview & Charts
+    details: All-time and period reporting for revenue, expenses, profit, cash, owner funding, vendors, payers, and bookkeeping health.
 ---

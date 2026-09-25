@@ -4,7 +4,7 @@
 
 ### From Community plugins
 
-PennyWallet is not yet listed in Obsidian's community plugins. Use BRAT or manual install below.
+Business Wallet is not yet listed in Obsidian's community plugins. Use BRAT or manual install below.
 
 ### BRAT (beta)
 
@@ -12,15 +12,15 @@ PennyWallet is not yet listed in Obsidian's community plugins. Use BRAT or manua
 
 1. Install the **BRAT** plugin from **Settings → Community plugins → Browse** and enable it
 2. Run **BRAT: Add a beta plugin for testing** from the Command Palette
-3. Enter the repository: `twrusstw/penny-wallet`
-4. Enable **PennyWallet** in **Settings → Community plugins**
+3. Enter the repository: `jcamden/business-wallet`
+4. Enable **Business Wallet** in **Settings → Community plugins**
 
 ### Manual
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/twrusstw/penny-wallet/releases/latest)
-2. Create the folder `<your-vault>/.obsidian/plugins/penny-wallet/`
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/jcamden/business-wallet/releases/latest)
+2. Create the folder `<your-vault>/.obsidian/plugins/business-wallet/`
 3. Copy the three files into that folder
-4. Open Obsidian → **Settings → Community plugins** → enable **PennyWallet**
+4. Open Obsidian → **Settings → Community plugins** → enable **Business Wallet**
 
 ---
 
@@ -28,7 +28,7 @@ PennyWallet is not yet listed in Obsidian's community plugins. Use BRAT or manua
 
 ### Step 1 — Add your accounts
 
-Go to **Settings → PennyWallet → Active Accounts** and click **Add Account**.
+Go to **Settings → Business Wallet → Active Accounts** and click **Add Account**.
 
 For each account you have, add an entry with:
 
@@ -42,11 +42,11 @@ For each account you have, add an entry with:
 
 ### Step 2 — Set a default account
 
-In **Settings → PennyWallet → General**, choose which account should be pre-selected when you open the Add Transaction form.
+In **Settings → Business Wallet → General**, choose which account should be pre-selected when you open the Add Transaction form.
 
 ### Step 3 — Log your first transaction
 
-Click the **PennyWallet icon** in the left ribbon to open the Finance Overview, then press **+ Add Transaction**. You can also run `PennyWallet: Add transaction` from the Command Palette (`Cmd+P`).
+Click the **Business Wallet icon** in the left ribbon to open the Business Overview, then press **+ Add Transaction**. You can also run `Business Wallet: Add transaction` from the Command Palette (`Cmd+P`).
 
 Fill in:
 - **Type** — Expense, Income, or Transfer
@@ -61,7 +61,7 @@ Press **Confirm** to save.
 
 <img src="/transaction-modal.png" alt="Add transaction form" width="560" />
 
-> Using PennyWallet on a phone? See [Mobile entry](./transactions#mobile-entry) for bottom-sheet pickers and the calculator.
+> Using Business Wallet on a phone? See [Mobile entry](./transactions#mobile-entry) for bottom-sheet pickers and the calculator.
 
 ---
 
@@ -71,26 +71,26 @@ All commands are available via `Cmd+P` (or `Ctrl+P` on Windows / Linux):
 
 | Command | Action |
 |---------|--------|
-| `PennyWallet: Open finance overview` | Open the dashboard |
-| `PennyWallet: Open transactions` | Open the transactions view |
-| `PennyWallet: Open assets` | Open the assets view |
-| `PennyWallet: Add transaction` | Open the transaction form directly |
-| `PennyWallet: Refresh views` | Refresh all open PennyWallet views |
-| `PennyWallet: Validate data` | Scan all wallet files for frontmatter / orphan-wallet issues |
-| `PennyWallet: Open settings` | Open Obsidian Settings on the PennyWallet tab |
+| `Business Wallet: Open business overview` | Open the dashboard |
+| `Business Wallet: Open transactions` | Open the transactions view |
+| `Business Wallet: Open assets` | Open the assets view |
+| `Business Wallet: Add transaction` | Open the transaction form directly |
+| `Business Wallet: Refresh views` | Refresh all open Business Wallet views |
+| `Business Wallet: Validate data` | Scan all wallet files for frontmatter / orphan-wallet issues |
+| `Business Wallet: Open settings` | Open Obsidian Settings on the Business Wallet tab |
 
 ---
 
 ## Where data is stored
 
-PennyWallet creates:
+Business Wallet creates:
 
 ```
 <vault>/
-├── .penny-wallet.json     ← your config (accounts, categories, settings)
-└── PennyWallet/           ← one .md file per month
+├── .business-wallet.json     ← your config (accounts, categories, settings)
+└── BusinessWallet/           ← one .md file per month
     ├── 2026-04.md
     └── 2026-03.md
 ```
 
-The folder name (`PennyWallet` by default) can be changed in Settings. See [Data Format](./data-format) for details on the file structure.
+The folder name (`BusinessWallet` by default) can be changed in Settings. See [Data Format](./data-format) for details on the file structure.

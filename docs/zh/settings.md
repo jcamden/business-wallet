@@ -1,6 +1,6 @@
 # 設定
 
-透過 Obsidian 的 **設定 → PennyWallet** 開啟。
+透過 Obsidian 的 **設定 → Business Wallet** 開啟。
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### 資料夾名稱
 
-儲存每月交易檔案的 vault 資料夾。預設：`PennyWallet`
+儲存每月交易檔案的 vault 資料夾。預設：`BusinessWallet`
 
 路徑相對於 vault 根目錄。若想將交易儲存在子資料夾中，例如 `Finance/Ledger`，可在此更改。
 

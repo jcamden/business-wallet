@@ -1,6 +1,6 @@
 # 資料格式
 
-PennyWallet 將所有資料以純文字檔案存放在你的 vault 中。無專有資料庫，無二進位檔案。
+Business Wallet 將所有資料以純文字檔案存放在你的 vault 中。無專有資料庫，無二進位檔案。
 
 ---
 
@@ -8,8 +8,8 @@ PennyWallet 將所有資料以純文字檔案存放在你的 vault 中。無專�
 
 ```
 <vault>/
-├── .penny-wallet.json       ← 外掛設定
-└── PennyWallet/             ← 每月交易檔案（資料夾名稱可設定）
+├── .business-wallet.json       ← 外掛設定
+└── BusinessWallet/             ← 每月交易檔案（資料夾名稱可設定）
     ├── 2026-04.md
     ├── 2026-03.md
     └── 2026-02.md
@@ -65,7 +65,7 @@ netAsset: 0
 
 ---
 
-## 設定檔：`.penny-wallet.json`
+## 設定檔：`.business-wallet.json`
 
 存放於 **vault 根目錄**（不在交易資料夾內）。
 
@@ -88,7 +88,7 @@ netAsset: 0
     }
   ],
   "defaultWallet": "現金",
-  "folderName": "PennyWallet",
+  "folderName": "BusinessWallet",
   "decimalPlaces": 0,
   "options": {
     "types": { "default": ["expense", "income", "transfer"], "custom": [] },
@@ -125,7 +125,7 @@ Dataview 可直接讀取 frontmatter 欄位，用來查詢每個檔案頂部的�
 
 ```dataview
 TABLE income, expense, (income - expense) AS balance
-FROM "PennyWallet"
+FROM "Business Wallet"
 WHERE income != null
 SORT file.name ASC
 ```
@@ -134,7 +134,7 @@ SORT file.name ASC
 
 ```dataview
 LIST file.name
-FROM "PennyWallet"
+FROM "Business Wallet"
 WHERE expense > income
 ```
 
@@ -151,4 +151,4 @@ WHERE expense > income
 - 退款會儲存為 `expense` 且金額為負數
 - `CreatedAt` 由 UI 寫入時自動填入 — 請勿手動修改，此欄位用於同日期交易的穩定排序
 
-手動編輯後，PennyWallet 會在下次渲染檢視時重新讀取檔案。Frontmatter 快取將在下次寫入該月份交易時自動更新。
+手動編輯後，Business Wallet 會在下次渲染檢視時重新讀取檔案。Frontmatter 快取將在下次寫入該月份交易時自動更新。

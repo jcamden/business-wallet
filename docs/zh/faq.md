@@ -4,7 +4,7 @@
 
 ### 帳戶餘額顯示有誤，怎麼了？
 
-PennyWallet 從初始值開始重播所有交易來計算餘額，起點是你建立帳戶時設定的**初始餘額**。
+Business Wallet 從初始值開始重播所有交易來計算餘額，起點是你建立帳戶時設定的**初始餘額**。
 
 常見原因：
 - **初始餘額設定錯誤** — 在設定中編輯帳戶並修正
@@ -61,23 +61,23 @@ PennyWallet 從初始值開始重播所有交易來計算餘額，起點是你�
 
 ### 可以使用小數金額嗎？
 
-可以。前往 **設定 → PennyWallet → 一般 → 小數位數**，切換為 **2 位小數**。新交易可接受 `.00` 格式的金額，現有整數交易不受影響。
+可以。前往 **設定 → Business Wallet → 一般 → 小數位數**，切換為 **2 位小數**。新交易可接受 `.00` 格式的金額，現有整數交易不受影響。
 
 ---
 
 ### 資料存放在哪裡？會同步嗎？
 
-所有資料以純 `.md` 和 `.json` 檔案存放在你的 Obsidian vault 中 — 無論 vault 位於哪裡（本機資料夾、iCloud、Obsidian Sync、Dropbox 等）。PennyWallet 不會將任何資料傳送到任何地方。
+所有資料以純 `.md` 和 `.json` 檔案存放在你的 Obsidian vault 中 — 無論 vault 位於哪裡（本機資料夾、iCloud、Obsidian Sync、Dropbox 等）。Business Wallet 不會將任何資料傳送到任何地方。
 
 ---
 
 ### 我不小心更改了設定中的資料夾名稱，現在交易記錄消失了。
 
-在 **設定 → PennyWallet → 資料夾名稱** 中將名稱改回原本的值。外掛讀取的是目前設定的資料夾名稱 — 不會自動移動檔案。
+在 **設定 → Business Wallet → 資料夾名稱** 中將名稱改回原本的值。外掛讀取的是目前設定的資料夾名稱 — 不會自動移動檔案。
 
 ---
 
-### PennyWallet 可以在手機上使用（iOS / Android）嗎？
+### Business Wallet 可以在手機上使用（iOS / Android）嗎？
 
 可以。所有功能在手機上都可使用，包括交易表單和三個檢視。若想不手動開啟 Obsidian 即可快速記帳，請參閱 [URI Handler 與 iOS 捷徑](./uri-handler)。
 
@@ -95,16 +95,16 @@ PennyWallet 從初始值開始重播所有交易來計算餘額，起點是你�
 
 ### 如何解除封存帳戶？
 
-前往 **設定 → PennyWallet → 已封存帳戶**，點擊帳戶旁的**解除封存**按鈕。帳戶將移回使用中帳戶，並重新出現在新增交易表單中。
+前往 **設定 → Business Wallet → 已封存帳戶**，點擊帳戶旁的**解除封存**按鈕。帳戶將移回使用中帳戶，並重新出現在新增交易表單中。
 
 ---
 
 ### 介面語言不對，如何更改？
 
-PennyWallet 自動配合 Obsidian 的語言設定 — 若 Obsidian 設為中文則顯示繁體中文，否則顯示英文。若要更改語言，請至 **設定 → 一般 → 語言** 更新 Obsidian 的介面語言，然後重新啟動 Obsidian。
+Business Wallet 自動配合 Obsidian 的語言設定 — 若 Obsidian 設為中文則顯示繁體中文，否則顯示英文。若要更改語言，請至 **設定 → 一般 → 語言** 更新 Obsidian 的介面語言，然後重新啟動 Obsidian。
 
 ---
 
 ### 如何回報問題或功能建議？
 
-請在 [GitHub](https://github.com/twrusstw/penny-wallet/issues) 上開 issue。
+請在 [GitHub](https://github.com/jcamden/business-wallet/issues) 上開 issue。

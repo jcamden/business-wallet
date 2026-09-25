@@ -4,8 +4,8 @@ import {
   TransactionType,
   WalletBalance,
   MonthSummary,
-  PennyWalletConfig,
-  PennyWalletOptions,
+  BusinessWalletConfig,
+  BusinessWalletOptions,
   DEFAULT_CONFIG,
   DEFAULT_EXPENSE_CATEGORIES,
   DEFAULT_INCOME_CATEGORIES,
@@ -13,7 +13,8 @@ import {
 } from '../types'
 import type { Wallet, FrontmatterIssue, OrphanedWalletIssue, ValidationIssue } from '../types'
 
-const ROOT_CONFIG_PATH = normalizePath('.penny-wallet.json')
+const ROOT_CONFIG_PATH = normalizePath('.business-wallet.json')
+const LEGACY_CONFIG_PATH = normalizePath('.penny-wallet.json')
 const TABLE_HEADER = `| Date | Type | Wallet | From | To | Category | Note | Tags | Amount | CreatedAt |
 |------|------|--------|------|----|----------|------|------|--------|-----------|`
 
@@ -189,7 +190,7 @@ function txDateOrder(a: Transaction, b: Transaction): number {
 
 export class WalletFile {
   private app: App
-  private config: PennyWalletConfig = { ...DEFAULT_CONFIG }
+  private config: BusinessWalletConfig = { ...DEFAULT_CONFIG }
   private createdDefaultConfigOnLastLoad = false
 
   constructor(app: App) {
@@ -202,10 +203,10 @@ export class WalletFile {
 
   // ── Config ──────────────────────────────────────────────────────────────────
 
-  async loadConfig(): Promise<PennyWalletConfig> {
+  async loadConfig(): Promise<BusinessWalletConfig> {
     this.createdDefaultConfigOnLastLoad = false
 
-    const path = ROOT_CONFIG_PATH
+    const path = await this.app.vault.adapter.exists(ROOT_CONFIG_PATH) ? ROOT_CONFIG_PATH : LEGACY_CONFIG_PATH
     const file = this.app.vault.getFileByPath(path)
 
     if (!file) {
@@ -214,7 +215,7 @@ export class WalletFile {
       if (existsOnDisk) {
         try {
           const raw = await this.app.vault.adapter.read(path)
-          const parsed = JSON.parse(raw) as Partial<PennyWalletConfig>
+          const parsed = JSON.parse(raw) as Partial<BusinessWalletConfig>
           this.config = { ...DEFAULT_CONFIG, ...parsed, options: this.normalizeOptions(parsed) }
         } catch {
           this.config = { ...DEFAULT_CONFIG }
@@ -237,7 +238,7 @@ export class WalletFile {
 
     try {
       const raw = await this.app.vault.read(file)
-      const parsed = JSON.parse(raw) as Partial<PennyWalletConfig>
+      const parsed = JSON.parse(raw) as Partial<BusinessWalletConfig>
       this.config = { ...DEFAULT_CONFIG, ...parsed, options: this.normalizeOptions(parsed) }
     } catch {
       this.config = { ...DEFAULT_CONFIG }
@@ -263,7 +264,7 @@ export class WalletFile {
     }
   }
 
-  private normalizeOptions(parsed: Partial<PennyWalletConfig>): PennyWalletOptions {
+  private normalizeOptions(parsed: Partial<BusinessWalletConfig>): BusinessWalletOptions {
     const p = parsed.options
     return {
       types: {
@@ -302,11 +303,11 @@ export class WalletFile {
     await this.vaultWrite(path, content, true)
   }
 
-  getConfig(): PennyWalletConfig {
+  getConfig(): BusinessWalletConfig {
     return this.config
   }
 
-  updateConfig(patch: Partial<PennyWalletConfig>): void {
+  updateConfig(patch: Partial<BusinessWalletConfig>): void {
     this.config = { ...this.config, ...patch }
   }
 

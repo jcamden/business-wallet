@@ -1,6 +1,6 @@
 # Settings
 
-Open via **Settings → PennyWallet** in Obsidian.
+Open via **Settings → Business Wallet** in Obsidian.
 
 ---
 
@@ -8,7 +8,7 @@ Open via **Settings → PennyWallet** in Obsidian.
 
 ### Folder Name
 
-The vault folder where monthly transaction files are stored. Default: `PennyWallet`
+The vault folder where monthly transaction files are stored. Default: `BusinessWallet`
 
 The path is relative to the vault root. Change this if you want transactions stored in a subfolder, e.g. `Finance/Ledger`.
 

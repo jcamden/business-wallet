@@ -1,39 +1,46 @@
 import { Events, ItemView, WorkspaceLeaf } from 'obsidian'
 import { WalletFile } from '../io/WalletFile'
 import { t, formatMonthLabel, formatYearMonth } from '../i18n'
-import { currentYearMonth } from '../utils'
+import { formatAmount } from '../utils'
 import { createMetric, renderCard } from './components'
-import { TransactionType } from '../types'
-import { DETAIL_VIEW_TYPE } from './DetailView'
 import { renderSharedHeader } from './SharedHeader'
 import { Chart } from 'chart.js'
-import { MonthData, drawIncExpChart, drawPie, getMonthRangeEndingAt } from './charts'
+import { drawIncExpChart, drawTrendChart, type MonthData, type TrendPoint } from './charts'
+import {
+  bookkeepingHealth,
+  expensesByCategory,
+  expensesByPayer,
+  expensesByVendor,
+  inDateRange,
+  monthRange,
+  rangeForPeriod,
+  summarizeBusiness,
+  transactionDate,
+  type BusinessPeriod,
+  type DateRange,
+  type DatedTransaction,
+} from '../business'
 
-export const DASHBOARD_VIEW_TYPE = 'penny-wallet-dashboard'
+export const DASHBOARD_VIEW_TYPE = 'business-wallet-dashboard'
 
 export class DashboardView extends ItemView {
   private walletFile: WalletFile
-  private currentYearMonth: string
+  private period: BusinessPeriod = 'all'
+  private customRange: DateRange = { start: null, end: null }
   private charts: Chart[] = []
-
-  private clearCharts() {
-    this.charts.forEach(c => c.destroy())
-    this.charts = []
-  }
 
   constructor(leaf: WorkspaceLeaf, walletFile: WalletFile) {
     super(leaf)
     this.walletFile = walletFile
-    this.currentYearMonth = currentYearMonth()
   }
 
   getViewType() { return DASHBOARD_VIEW_TYPE }
   getDisplayText() { return t('dashboard.title') }
-  getIcon() { return 'wallet' }
+  getIcon() { return 'briefcase' }
 
   async onOpen() {
     this.registerEvent(
-      (this.app.workspace as Events).on('penny-wallet:refresh', () => { void this.render() })
+      (this.app.workspace as Events).on('business-wallet:refresh', () => { void this.render() })
     )
     this.registerEvent(
       (this.app.workspace as Events).on('css-change', () => { void this.render() })
@@ -47,96 +54,164 @@ export class DashboardView extends ItemView {
     return Promise.resolve()
   }
 
+  private clearCharts() {
+    this.charts.forEach(chart => chart.destroy())
+    this.charts = []
+  }
+
   async render() {
     const { contentEl } = this
     this.clearCharts()
     contentEl.empty()
     contentEl.addClass('pw-dashboard')
 
-    const months = getMonthRangeEndingAt(this.currentYearMonth, 6)
-
-    const [transactions, summaries, netTimeline] = await Promise.all([
-      this.walletFile.readMonth(this.currentYearMonth),
-      this.walletFile.getMonthSummaries(months),
-      this.walletFile.getNetAssetTimeline(months),
-    ])
+    const yearMonths = this.walletFile.getAllYearMonths()
+    const monthlyTransactions = await Promise.all(yearMonths.map(yearMonth => this.walletFile.readMonth(yearMonth)))
+    const allTransactions: DatedTransaction[] = yearMonths.flatMap((yearMonth, index) =>
+      monthlyTransactions[index].map(tx => ({ ...tx, yearMonth })))
+    const range = this.period === 'custom' ? this.customRange : rangeForPeriod(this.period)
+    const transactions = allTransactions.filter(tx => inDateRange(tx, range))
+    const summary = summarizeBusiness(transactions)
+    const dp = this.walletFile.getConfig().decimalPlaces ?? 0
 
     renderSharedHeader(contentEl, {
       view: this,
       walletFile: this.walletFile,
       activeView: 'dashboard',
-      yearMonth: this.currentYearMonth,
-      onMonthChange: (ym) => { this.currentYearMonth = ym; void this.render() },
+      yearMonth: null,
+    })
+    this.renderPeriodControls(contentEl)
+
+    const cashTransactions = range.end
+      ? allTransactions.filter(tx => transactionDate(tx) <= range.end!)
+      : allTransactions
+    const businessCash = this.walletFile.computeWalletBalances(cashTransactions)
+      .filter(({ wallet }) => wallet.includeInNetAsset && (wallet.type === 'cash' || wallet.type === 'bank'))
+      .reduce((total, { balance }) => total + balance, 0)
+
+    const metrics = contentEl.createDiv('pw-metrics pw-business-metrics')
+    createMetric(metrics, t('dash.salesRevenue'), summary.salesRevenue, 'income', { dp })
+    createMetric(metrics, t('dash.businessExpenses'), summary.businessExpenses, 'expense', { dp })
+    createMetric(metrics, t('dash.profitLoss'), summary.profitLoss,
+      summary.profitLoss >= 0 ? 'positive' : 'negative', { dp, hero: true })
+    createMetric(metrics, t('dash.businessCash'), businessCash, 'neutral', { dp })
+    createMetric(metrics, t('dash.ownerFunding'), summary.ownerFunding, 'neutral', { dp })
+    createMetric(metrics, t('dash.ownerDraws'), summary.ownerDraws, 'neutral', { dp })
+
+    const fundingCard = renderCard(contentEl, { title: t('dash.fundingSource'), className: 'pw-wide-card' })
+    this.renderBreakdown(fundingCard, expensesByPayer(transactions), dp)
+
+    const breakdowns = contentEl.createDiv('pw-business-grid')
+    const categoryCard = renderCard(breakdowns, { title: t('dash.expenseByCategory') })
+    this.renderBreakdown(categoryCard, expensesByCategory(transactions), dp)
+    const vendorCard = renderCard(breakdowns, { title: t('dash.expenseByVendor') })
+    this.renderBreakdown(vendorCard, expensesByVendor(transactions), dp)
+
+    this.renderTrends(contentEl, transactions, range, dp)
+    this.renderHealth(contentEl, allTransactions)
+  }
+
+  private renderPeriodControls(parent: HTMLElement): void {
+    const controls = parent.createDiv('pw-period-controls')
+    controls.createEl('label', { text: t('dash.period'), attr: { for: 'pw-business-period' } })
+    const select = controls.createEl('select', { cls: 'dropdown', attr: { id: 'pw-business-period' } })
+    const periods: Array<[BusinessPeriod, string]> = [
+      ['all', t('period.all')],
+      ['ytd', t('period.ytd')],
+      ['thisMonth', t('period.thisMonth')],
+      ['priorMonth', t('period.priorMonth')],
+      ['custom', t('period.custom')],
+    ]
+    for (const [value, label] of periods) {
+      const option = select.createEl('option', { text: label, value })
+      option.selected = value === this.period
+    }
+    select.addEventListener('change', () => {
+      this.period = select.value as BusinessPeriod
+      void this.render()
     })
 
-    const dp = this.walletFile.getConfig().decimalPlaces ?? 0
+    if (this.period !== 'custom') return
+    const start = controls.createEl('input', { type: 'date', value: this.customRange.start ?? '' })
+    const end = controls.createEl('input', { type: 'date', value: this.customRange.end ?? '' })
+    start.setAttr('aria-label', t('period.start'))
+    end.setAttr('aria-label', t('period.end'))
+    start.max = end.value
+    end.min = start.value
+    start.addEventListener('change', () => {
+      this.customRange.start = start.value || null
+      void this.render()
+    })
+    end.addEventListener('change', () => {
+      this.customRange.end = end.value || null
+      void this.render()
+    })
+  }
 
-    // ── Monthly metrics ──────────────────────────────────────────────────────
-    let monthIncome = 0, monthExpense = 0
-    for (const tx of transactions) {
-      if (tx.type === 'income') monthIncome += tx.amount
-      if (tx.type === 'expense') monthExpense += tx.amount
+  private renderBreakdown(parent: HTMLElement, values: Map<string, number>, dp: 0 | 2): void {
+    const entries = [...values.entries()]
+      .filter(([, amount]) => amount !== 0)
+      .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+    if (entries.length === 0) {
+      parent.createEl('p', { text: t('dash.noData'), cls: 'pw-no-data' })
+      return
     }
-    const monthBalance = monthIncome - monthExpense
 
-    const metricsEl = contentEl.createDiv('pw-metrics')
-    createMetric(metricsEl, t('dash.income'),  monthIncome,  'income',  { dp })
-    createMetric(metricsEl, t('dash.expense'), monthExpense, 'expense', { dp })
-    createMetric(metricsEl, t('dash.balance'), monthBalance,
-      monthBalance >= 0 ? 'positive' : 'negative',
-      { dp, hero: true },
-    )
+    const table = parent.createDiv('pw-breakdown-table')
+    for (const [name, amount] of entries) {
+      const row = table.createDiv('pw-breakdown-row')
+      row.createEl('span', { text: name || t('label.cat.uncategorized') })
+      row.createEl('span', { text: formatAmount(amount, dp), cls: amount < 0 ? 'negative' : '' })
+    }
+  }
 
-    // ── 6-month bar chart ────────────────────────────────────────────────────
-    const data: MonthData[] = months.map(ym => ({
-      monthLabel: formatMonthLabel(ym),
-      tooltipLabel: formatYearMonth(ym, 'short'),
-      income: summaries.get(ym)?.income ?? 0,
-      expense: summaries.get(ym)?.expense ?? 0,
-      net: netTimeline.get(ym) ?? null,
+  private renderTrends(parent: HTMLElement, transactions: DatedTransaction[], range: DateRange, dp: 0 | 2): void {
+    const months = monthRange(transactions, range)
+    if (months.length === 0) return
+
+    let cumulativeProfit = 0
+    const monthly = months.map(yearMonth => {
+      const summary = summarizeBusiness(transactions.filter(tx => tx.yearMonth === yearMonth))
+      cumulativeProfit += summary.profitLoss
+      return { yearMonth, summary, cumulativeProfit }
+    })
+    const chartData: MonthData[] = monthly.map(({ yearMonth, summary }) => ({
+      monthLabel: formatMonthLabel(yearMonth),
+      tooltipLabel: formatYearMonth(yearMonth, 'short'),
+      income: summary.salesRevenue,
+      expense: summary.businessExpenses,
+      net: null,
+    }))
+    const trendPoint = (pick: (row: typeof monthly[number]) => number): TrendPoint[] => monthly.map(row => ({
+      monthLabel: formatMonthLabel(row.yearMonth),
+      tooltipLabel: formatYearMonth(row.yearMonth, 'short'),
+      value: pick(row),
     }))
 
-    // ── 2-column grid: bar chart left, pie charts right ─────────────────────
-    const grid2 = contentEl.createDiv('pw-grid-2')
-
-    const incExpCard = renderCard(grid2, {
-      title: t('trend.monthlyIncomeExpense'),
-      className: 'pw-inc-exp-card',
-    })
-    const incExpChartWrap = incExpCard.createDiv('pw-chart-wrap')
-    this.charts.push(drawIncExpChart(incExpChartWrap, data, dp))
-
-    // ── Category pies ────────────────────────────────────────────────────────
-    const gridRight = grid2.createDiv('pw-grid-right')
-
-    const expenseMap = this.walletFile.groupByCategory(transactions, 'expense')
-    const incomeMap  = this.walletFile.groupByCategory(transactions, 'income')
-
-    const expCard = renderCard(gridRight, { title: t('dash.expenseByCategory') })
-    if (expenseMap.size > 0) this.charts.push(drawPie(expCard, expenseMap, dp, (cat) => { void this.openDetailWithFilter('expense', cat) }, 200))
-    else expCard.createEl('p', { text: t('dash.noData'), cls: 'pw-no-data' })
-
-    const incCard = renderCard(gridRight, { title: t('dash.incomeByCategory') })
-    if (incomeMap.size > 0) this.charts.push(drawPie(incCard, incomeMap, dp, (cat) => { void this.openDetailWithFilter('income', cat) }, 200))
-    else incCard.createEl('p', { text: t('dash.noData'), cls: 'pw-no-data' })
+    const trends = parent.createDiv('pw-business-trends')
+    const revenueCard = renderCard(trends, { title: t('trend.monthlyRevenueExpense'), className: 'pw-inc-exp-card' })
+    this.charts.push(drawIncExpChart(revenueCard.createDiv('pw-chart-wrap'), chartData, dp))
+    const profitCard = renderCard(trends, { title: t('trend.cumulativeProfitLoss') })
+    this.charts.push(drawTrendChart(profitCard.createDiv('pw-chart-wrap'), trendPoint(row => row.cumulativeProfit), t('dash.profitLoss'), dp))
+    const fundingCard = renderCard(trends, { title: t('trend.ownerFunding') })
+    this.charts.push(drawTrendChart(fundingCard.createDiv('pw-chart-wrap'), trendPoint(row => row.summary.ownerFunding), t('dash.ownerFunding'), dp, 'income'))
   }
 
-  private async openDetailWithFilter(type: TransactionType, category: string) {
-    await this.openOrRevealView(DETAIL_VIEW_TYPE, {
-      state: { yearMonth: this.currentYearMonth, filterType: type, filterCategory: category, resetFilters: true },
-    })
-  }
-
-  private async openOrRevealView(type: string, options?: { state?: Record<string, unknown> }) {
-    const existing = this.app.workspace.getLeavesOfType(type)
-    const leaf = existing[0] ?? this.app.workspace.getLeaf('tab')
-
-    await leaf.setViewState({
-      type,
-      active: true,
-      state: options?.state,
-    })
-
-    void this.app.workspace.revealLeaf(leaf)
+  private renderHealth(parent: HTMLElement, transactions: DatedTransaction[]): void {
+    const health = bookkeepingHealth(transactions, this.walletFile.getConfig().wallets)
+    const card = renderCard(parent, { title: t('health.title'), className: 'pw-wide-card' })
+    const grid = card.createDiv('pw-health-grid')
+    const values: Array<[string, string | number, boolean]> = [
+      [t('health.needsReview'), health.needsReview, health.needsReview > 0],
+      [t('health.missingReceipts'), health.missingReceipts, health.missingReceipts > 0],
+      [t('health.unreconciled'), health.unreconciledBank, health.unreconciledBank > 0],
+      [t('health.latestStatement'), health.latestStatement ?? t('health.none'), false],
+      [t('health.duplicateSources'), health.duplicateSources, health.duplicateSources > 0],
+    ]
+    for (const [label, value, warning] of values) {
+      const item = grid.createDiv('pw-health-item' + (warning ? ' is-warning' : ''))
+      item.createEl('span', { text: label })
+      item.createEl('strong', { text: String(value) })
+    }
   }
 }

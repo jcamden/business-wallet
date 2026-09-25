@@ -14,10 +14,10 @@ describe('loadConfig', () => {
     expect(config.wallets).toHaveLength(1)
     // setup.ts stubs window.moment.locale() → 'en', so default wallet name is 'Cash'
     expect(config.wallets[0].name).toBeTruthy()
-    expect(store.has('.penny-wallet.json')).toBe(true)
+    expect(store.has('.business-wallet.json')).toBe(true)
   })
 
-  it('loads config from existing .penny-wallet.json', async () => {
+  it('loads config from legacy .penny-wallet.json', async () => {
     const saved = { ...DEFAULT_CONFIG, defaultWallet: 'MyBank', wallets: [
       { name: 'MyBank', type: 'bank' as const, initialBalance: 9999, status: 'active' as const, includeInNetAsset: true },
     ]}
@@ -45,7 +45,7 @@ describe('loadConfig', () => {
   })
 
   it('falls back to DEFAULT_CONFIG for malformed JSON', async () => {
-    const { app } = createMockApp({ '.penny-wallet.json': '{ invalid json }' })
+    const { app } = createMockApp({ '.business-wallet.json': '{ invalid json }' })
     const wf = new WalletFile(app)
     const config = await wf.loadConfig()
 
@@ -58,20 +58,20 @@ describe('loadConfig', () => {
 
 describe('saveConfig + updateConfig', () => {
   it('persists a patched config to the vault', async () => {
-    const { app, store } = createMockApp({ '.penny-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
+    const { app, store } = createMockApp({ '.business-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
 
     wf.updateConfig({ defaultWallet: 'Updated' })
     await wf.saveConfig()
 
-    const raw = store.get('.penny-wallet.json')!
+    const raw = store.get('.business-wallet.json')!
     const parsed = JSON.parse(raw)
     expect(parsed.defaultWallet).toBe('Updated')
   })
 
   it('getConfig returns the in-memory config after updateConfig', async () => {
-    const { app } = createMockApp({ '.penny-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
+    const { app } = createMockApp({ '.business-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
 
@@ -84,7 +84,7 @@ describe('saveConfig + updateConfig', () => {
 
 describe('addTag', () => {
   async function setup() {
-    const { app, store } = createMockApp({ '.penny-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
+    const { app, store } = createMockApp({ '.business-wallet.json': JSON.stringify(DEFAULT_CONFIG) })
     const wf = new WalletFile(app)
     await wf.loadConfig()
     return { wf, store, app }
@@ -141,7 +141,7 @@ describe('addTag', () => {
   it('persists to disk', async () => {
     const { wf, store } = await setup()
     await wf.addTag('coffee')
-    const raw = store.get('.penny-wallet.json')!
+    const raw = store.get('.business-wallet.json')!
     expect(JSON.parse(raw).tags).toContain('coffee')
   })
 })

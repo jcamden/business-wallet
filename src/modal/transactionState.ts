@@ -1,4 +1,4 @@
-import type { TransactionType, PennyWalletConfig, Transaction, Wallet } from '../types'
+import type { TransactionType, BusinessWalletConfig, Transaction, Wallet } from '../types'
 import { translateCategory } from '../i18n'
 import { validateTag, dateToMonthDay } from '../utils'
 
@@ -35,7 +35,7 @@ export function parseAmountForEdit(rawAmount: number): { display: string; isRefu
  * Default keys go through i18n translation; custom labels are user strings.
  */
 export function getCategoryOptions(
-  config: PennyWalletConfig,
+  config: BusinessWalletConfig,
   type: TransactionType,
 ): { key: string; label: string }[] {
   const catOptions = type === 'expense'
@@ -95,7 +95,7 @@ export type ValidationResult =
  */
 export function validateTransactionForm(
   state: TransactionFormState,
-  config: PennyWalletConfig,
+  config: BusinessWalletConfig,
 ): ValidationResult {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(state.date)) {
     return { ok: false, errorKey: 'err.invalidDate' }

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { parseAmountForEdit, getCategoryOptions, addTagToList, validateTransactionForm, getTransferWalletCandidates, type TransactionFormState } from '../../src/modal/transactionState'
-import type { PennyWalletConfig, Wallet } from '../../src/types'
+import type { BusinessWalletConfig, Wallet } from '../../src/types'
 
 describe('parseAmountForEdit', () => {
   it('positive integer → display string + isRefund=false', () => {
@@ -37,7 +37,7 @@ describe('getCategoryOptions', () => {
         transfer: { default: ['credit_card_payment'], custom: ['custom_xfer'] },
       },
     },
-  } as unknown as PennyWalletConfig
+  } as unknown as BusinessWalletConfig
 
   it('expense type → default keys + custom values', () => {
     const result = getCategoryOptions(baseConfig, 'expense')
@@ -62,7 +62,7 @@ describe('getCategoryOptions', () => {
         income: { default: [], custom: [] },
         transfer: { default: [], custom: [] },
       } },
-    } as unknown as PennyWalletConfig
+    } as unknown as BusinessWalletConfig
     const result = getCategoryOptions(cfg, 'expense')
     expect(result.map(r => r.key)).toEqual(['only_custom'])
   })
@@ -123,7 +123,7 @@ describe('validateTransactionForm', () => {
     isRefund: false,
   }
 
-  const config0dp: PennyWalletConfig = {
+  const config0dp: BusinessWalletConfig = {
     wallets: [
       { name: 'cash', type: 'cash', status: 'active', initialBalance: 0, includeInNetAsset: true },
       { name: 'visa', type: 'creditCard', status: 'active', initialBalance: 0, includeInNetAsset: true },
@@ -132,12 +132,12 @@ describe('validateTransactionForm', () => {
     defaultWallet: 'cash',
     decimalPlaces: 0,
     tags: [],
-    folderName: 'PennyWallet',
+    folderName: 'BusinessWallet',
     autoValidateOnLoad: true,
     options: {} as never,
-  } as PennyWalletConfig
+  } as BusinessWalletConfig
 
-  const config2dp: PennyWalletConfig = { ...config0dp, decimalPlaces: 2 }
+  const config2dp: BusinessWalletConfig = { ...config0dp, decimalPlaces: 2 }
 
   it('valid expense → ok', () => {
     expect(validateTransactionForm(validExpenseState, config0dp)).toEqual({ ok: true })

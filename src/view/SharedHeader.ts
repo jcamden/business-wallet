@@ -73,7 +73,7 @@ export function renderSharedHeader(container: HTMLElement, opts: SharedHeaderOpt
     addBtn.disabled = true
     const ModalClass = Platform.isMobile ? MobileTransactionModal : TransactionModal
     new ModalClass(opts.view.app, opts.walletFile, {}, null, null,
-      () => (opts.view.app.workspace as Events).trigger('penny-wallet:refresh'),
+      () => (opts.view.app.workspace as Events).trigger('business-wallet:refresh'),
       () => { addBtn.disabled = false },
     ).open()
   })

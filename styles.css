@@ -104,9 +104,9 @@ body {
   --pw-shadow-overlay-above: 0 -4px 16px rgba(0, 0, 0, 0.20);
 }
 
-/* ── PennyWallet Plugin Styles ── */
+/* ── Business Wallet Plugin Styles ── */
 
-/* Allow text selection in all PennyWallet views (Obsidian sets user-select: none on leaves) */
+/* Allow text selection in all Business Wallet views (Obsidian sets user-select: none on leaves) */
 .pw-dashboard,
 .pw-detail,
 .pw-asset {
@@ -1158,6 +1158,105 @@ button.pw-mobile-calculator-done {
 /* ── Dashboard ── */
 .pw-dashboard {
   padding-bottom: 40px;
+}
+
+.pw-period-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 20px 0;
+}
+
+.pw-period-controls label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pw-period-controls input,
+.pw-period-controls select {
+  min-height: 32px;
+}
+
+.pw-business-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: none;
+}
+
+.pw-wide-card {
+  margin: 0 20px 12px;
+}
+
+.pw-business-grid,
+.pw-business-trends {
+  display: grid;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.pw-business-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pw-business-trends {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pw-business-trends .pw-chart-wrap {
+  height: 240px;
+}
+
+.pw-breakdown-table {
+  display: grid;
+}
+
+.pw-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 7px 0;
+  border-top: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+}
+
+.pw-breakdown-row:first-child {
+  border-top: 0;
+}
+
+.pw-breakdown-row span:last-child {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.pw-breakdown-row .negative {
+  color: var(--pw-expense);
+}
+
+.pw-health-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.pw-health-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.pw-health-item strong {
+  color: var(--text-normal);
+  font-size: 18px;
+}
+
+.pw-health-item.is-warning strong {
+  color: var(--pw-expense);
 }
 
 /* Asset view */
@@ -2456,6 +2555,21 @@ select.pw-add-wallet-input {
   .pw-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 12px;
+  }
+
+  .pw-business-grid,
+  .pw-business-trends {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+  }
+
+  .pw-wide-card {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+
+  .pw-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .pw-nav-row {

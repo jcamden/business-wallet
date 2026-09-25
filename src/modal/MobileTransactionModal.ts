@@ -1,5 +1,5 @@
 import { setIcon } from 'obsidian'
-import { TransactionType, PennyWalletConfig } from '../types'
+import { TransactionType, BusinessWalletConfig } from '../types'
 import { t } from '../i18n'
 import { TransactionModal } from './TransactionModal'
 import { formatMobileHeroAmount } from '../utils'
@@ -33,7 +33,7 @@ export class MobileTransactionModal extends TransactionModal {
     setTimeout(() => (document.activeElement as HTMLElement)?.blur(), 100)
   }
 
-  private buildMobileUI(config: PennyWalletConfig) {
+  private buildMobileUI(config: BusinessWalletConfig) {
     const { contentEl, containerEl } = this
     contentEl.empty()
     contentEl.addClass('pw-mobile-content')
@@ -126,7 +126,7 @@ export class MobileTransactionModal extends TransactionModal {
     }
   }
 
-  private renderMobileTabs(config: PennyWalletConfig) {
+  private renderMobileTabs(config: BusinessWalletConfig) {
     this.mobileTabsEl.empty()
     const types: TransactionType[] = ['expense', 'income', 'transfer']
     for (const tp of types) {
@@ -142,7 +142,7 @@ export class MobileTransactionModal extends TransactionModal {
     }
   }
 
-  private renderMobileRows(config: PennyWalletConfig) {
+  private renderMobileRows(config: BusinessWalletConfig) {
     this.mobileRowsEl.empty()
     const activeWallets = this.getActiveWallets(config)
 

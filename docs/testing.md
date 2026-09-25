@@ -1,12 +1,12 @@
 # Testing Guide
 
-This page covers the automated test strategy for PennyWallet, how to set up the test environment, and which areas are covered.
+This page covers the automated test strategy for Business Wallet, how to set up the test environment, and which areas are covered.
 
 ---
 
 ## Overview
 
-PennyWallet uses **[Vitest](https://vitest.dev/)** as its test runner. Vitest was chosen because:
+Business Wallet uses **[Vitest](https://vitest.dev/)** as its test runner. Vitest was chosen because:
 
 - Native ESM and TypeScript support (no extra transform config needed)
 - Compatible with the project's `ES2018` / `lib: ES2017` target
@@ -30,7 +30,7 @@ The bulk of automated coverage targets **pure functions** in `WalletFile.ts`, `u
 ## Directory Layout
 
 ```
-penny-wallet/
+business-wallet/
 ├── src/
 │   └── ...
 ├── tests/
@@ -260,8 +260,8 @@ export function createMockApp(initialFiles: Record<string, string> = {}) {
 
 | Scenario | Expected |
 |----------|---------|
-| No config file on disk (first launch) | creates `.penny-wallet.json` with locale cash name |
-| Config at `.penny-wallet.json` | loads and returns it |
+| No config file on disk (first launch) | creates `.business-wallet.json` with locale cash name |
+| Config at `.business-wallet.json` | loads and returns it |
 | Malformed JSON | falls back to `DEFAULT_CONFIG` |
 | `saveConfig` after `updateConfig` | persists patch to in-memory vault |
 | `getConfig` after `updateConfig` | returns latest in-memory value |
@@ -303,9 +303,9 @@ export function createMockApp(initialFiles: Record<string, string> = {}) {
 | Section | What's tested |
 |---------|--------------|
 | Plugin health | Plugin reloads without error |
-| Finance Overview — layout | Month label, nav buttons, metrics, wallet list |
-| Finance Overview — navigation | Prev/next month buttons, disabled state |
-| Finance Overview — pie charts | Chart renders, legend items |
+| Business Overview — layout | Month label, nav buttons, metrics, wallet list |
+| Business Overview — navigation | Prev/next month buttons, disabled state |
+| Business Overview — pie charts | Chart renders, legend items |
 | Add Transaction modal | Modal opens, type tabs present |
 | Add expense transaction | Full form submit: wallet selected, amount filled, modal closes |
 | Add refund transaction | Refund toggle stores a negative expense |

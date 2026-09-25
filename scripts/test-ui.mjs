@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * UI integration test runner for PennyWallet.
+ * UI integration test runner for Business Wallet.
  * Uses the Obsidian CLI to drive the demo-vault instance.
  *
  * Prerequisites:
@@ -33,9 +33,9 @@ const vaultArg = args.find(a => a.startsWith('--vault='))?.split('=')[1]
 const VAULT = vaultArg ?? 'demo-vault'
 const vaultRoot = join(rootDir, VAULT)
 
-/** Read .penny-wallet.json directly from disk (Obsidian CLI cannot read dotfiles). */
+/** Read .business-wallet.json directly from disk (Obsidian CLI cannot read dotfiles). */
 function readConfig() {
-  try { return readFileSync(join(vaultRoot, '.penny-wallet.json'), 'utf8') }
+  try { return readFileSync(join(vaultRoot, '.business-wallet.json'), 'utf8') }
   catch { return null }
 }
 
@@ -98,22 +98,22 @@ function wait(ms = 400) {
 // ─── Obsidian helpers ─────────────────────────────────────────────────────────
 
 function openDashboard() {
-  obs('command id="penny-wallet:open-dashboard"')
+  obs('command id="business-wallet:open-dashboard"')
   wait(600)
 }
 
 function openDetail() {
-  obs('command id="penny-wallet:open-detail"')
+  obs('command id="business-wallet:open-detail"')
   wait(600)
 }
 
 function openAsset() {
-  obs('command id="penny-wallet:open-asset"')
+  obs('command id="business-wallet:open-asset"')
   wait(600)
 }
 
 function openAddModal() {
-  obs('command id="penny-wallet:add-transaction"')
+  obs('command id="business-wallet:add-transaction"')
   wait(400)
 }
 
@@ -200,7 +200,7 @@ function ensureDesktopMode() {
   const emulateResult = evalJs('app.emulateMobile(false); true')
   setDesktopViewport()
 
-  const reloadResult = obs('plugin:reload id=penny-wallet')
+  const reloadResult = obs('plugin:reload id=business-wallet')
   wait(800)
   const state = setDesktopViewport()
   obs('dev:debug on')
@@ -456,14 +456,14 @@ section('Settings tab')
 obs('command id="app:open-settings"')
 wait(500)
 
-// Navigate to PennyWallet settings tab
-evalJs("Array.from(document.querySelectorAll('.vertical-tab-nav-item')).find(el => el.textContent?.includes('PennyWallet'))?.click()")
+// Navigate to Business Wallet settings tab
+evalJs("Array.from(document.querySelectorAll('.vertical-tab-nav-item')).find(el => el.textContent?.includes('Business Wallet'))?.click()")
 wait(500)
 
-assert('Settings tab opens', count('.pw-settings, .penny-wallet-settings, .vertical-tab-content') > 0)
+assert('Settings tab opens', count('.pw-settings, .business-wallet-settings, .vertical-tab-content') > 0)
 
 // Folder name setting should be present
-assert('Folder name setting visible', count('input[value="PennyWallet"]') > 0
+assert('Folder name setting visible', count('input[value="BusinessWallet"]') > 0
                                    || count('.setting-item') > 2)
 
 // Decimal places toggle should be present
@@ -539,7 +539,7 @@ assert('Wallet status is archived in config',
 
 // Restore — settings re-renders after archive, wait and re-navigate
 wait(400)
-evalJs("Array.from(document.querySelectorAll('.vertical-tab-nav-item')).find(el => el.textContent?.includes('PennyWallet'))?.click()")
+evalJs("Array.from(document.querySelectorAll('.vertical-tab-nav-item')).find(el => el.textContent?.includes('Business Wallet'))?.click()")
 wait(500)
 evalJs(`[...document.querySelectorAll('.pw-wallet-row')].find(el => el.querySelector('[data-action="unarchive"]') && el.querySelector('.pw-wallet-row-name')?.textContent?.trim() === ${JSON.stringify(archiveTargetName)})?.querySelector('[data-action="unarchive"]')?.click()`)
 wait(400)
@@ -559,7 +559,7 @@ section('URI handler — open modal with pre-filled fields')
 
 // Use macOS `open` to trigger the obsidian:// protocol handler
 try {
-  execSync(`open "obsidian://penny-wallet?vault=${VAULT}&type=income&amount=5000&note=TestURI"`, { timeout: 5000 })
+  execSync(`open "obsidian://business-wallet?vault=${VAULT}&type=income&amount=5000&note=TestURI"`, { timeout: 5000 })
 } catch { /* ignore */ }
 wait(900)
 
