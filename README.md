@@ -2,6 +2,34 @@
 
 A business bookkeeping plugin for [Obsidian](https://obsidian.md), based on the original personal-finance project. Transactions stay in plain Markdown tables while the primary view reports revenue, operating expenses, owner equity, cash, and bookkeeping health correctly for a small business.
 
+## Installation
+
+Business Wallet is currently installed manually rather than through Obsidian's community-plugin catalog.
+
+```bash
+git clone git@github.com:jcamden/business-wallet.git
+cd business-wallet
+npm ci
+npm run build
+mkdir -p "/path/to/vault/.obsidian/plugins/business-wallet"
+cp main.js manifest.json styles.css "/path/to/vault/.obsidian/plugins/business-wallet/"
+```
+
+Restart Obsidian, then enable **Business Wallet** under **Settings → Community plugins**.
+
+### Replacing the original plugin
+
+Disable and remove the old plugin folder before enabling Business Wallet; do not run both plugins at once. Keep the existing `.penny-wallet.json` and transaction folder in place. Business Wallet reads that legacy config automatically, and later settings changes are saved to `.business-wallet.json`.
+
+## Initial bookkeeping setup
+
+Create or retain these custom categories:
+
+- Income: `Sales revenue`, `Owner contribution`, `Refunds`, `Needs review`
+- Expense: `AI and API services`, `Hosting and software`, `Formation and legal`, `Marketing`, `Payment processing`, `Professional services`, `Bank fees`, `Owner draw`, `Needs review`
+
+Add `Owner-paid business expenses` as a separate account and turn off **Include in net assets** for it. This keeps personally funded costs in business expenses without changing business-bank or cash balances.
+
 ## Business overview
 
 The overview defaults to **All time** and also supports **Year to date**, **This month**, **Prior month**, and a native custom date range.
